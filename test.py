@@ -85,6 +85,7 @@ while running:
 
     # Check if there is a winner
     if winner:
+
         # Display the winner
         winner_text = font.render(f"Player {winner} wins!", True, BLACK)
         winner_rect = winner_text.get_rect(center=(window_width // 2, window_height // 2))
@@ -95,3 +96,4 @@ while running:
 
 # Quit Pygame
 pygame.quit()
+
