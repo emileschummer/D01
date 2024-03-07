@@ -10,7 +10,7 @@ Calculations:
     -> Define the bin sizes
     -> Average over the each bin
 
--> Calculate parameters for fields
+-> Calculate parameters for fields, at each position
     -> Vorticity
     -> Mean-velocity fluctuations
     -> Turbulent kinetic energy
