@@ -1,5 +1,5 @@
 import os
-from vectorfieldfun import vectorfieldpng
+from vectorfieldtool import vectorfieldpng
 import time
 
 # Define the directory containing the data files
