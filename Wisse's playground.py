@@ -1,34 +1,27 @@
+import os
+from vectorfieldfun import vectorfieldpng
+import time
 
-#vector field expiriment
-import numpy as np 
-import matplotlib.pyplot as plt
+# Define the directory containing the data files
+data_directory = "Data/B_J1/Velocity"
 
-
-
-positions_file_path = "Data/B_J1/XY.dat"
-positions = np.loadtxt(positions_file_path)  
-# Read data from files
-
-velocity_file_path = "Data/B_J1/Velocity/frame_1000.dat"
-magnitudes = np.loadtxt(velocity_file_path)
-  # Assuming magnitudes_file.txt contains u, v magnitudes
-
-# Extract x, y positions from the positions data
-x_positions = positions[:, 0]
-y_positions = positions[:, 1]
-
-# Extract u, v magnitudes from the magnitudes data
-u_magnitudes = magnitudes[:, 0]
-v_magnitudes = magnitudes[:, 1]
-
-# Plotting Vector Field with QUIVER
-plt.quiver(x_positions, y_positions, u_magnitudes, v_magnitudes, color='g')
-plt.title('Vector Field')
-
-# Setting x, y boundary limits
-plt.xlim(np.min(x_positions) - 1, np.max(x_positions) + 1)
-plt.ylim(np.min(y_positions) - 1, np.max(y_positions) + 1)
-
-# Show plot with grid
-plt.grid()
-plt.show()
+# Iterate over frame numbers
+frame_number = 1  # Start with the first frame
+while True:
+    # Construct the file path for the current frame
+    file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+    
+    # Call the vectorfieldpng function for the current frame
+    vectorfieldpng(file_path, frame_number)
+    
+    # Increment frame number
+    frame_number += 1
+    if frame_number>200:
+        break
+    
+    
+    
+    # Check if the next file exists
+    next_file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+    if not os.path.exists(next_file_path):
+        break  # Exit the loop if the next file doesn't exist
