@@ -1,5 +1,5 @@
 import os
-from vectorfieldfun import vectorfieldpng
+from vectorfieldtool import vectorfieldpng
 import time
 
 data_directory = "Data/B_J1/Velocity"
