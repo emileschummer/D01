@@ -52,12 +52,15 @@ def Turbulent_kinetic_energy(Velocity_fluctuations):
     Velocity_fluctuations_squared_y = np.square(Velocity_fluctuations)[:, :, 1]
 
 
-    # Calculate the turbulent kinetic energy field  
+    # Calculate the turbulent kinetic energy field x and y
     Turbulent_kinetic_energy_x = 0.5 * np.mean(Velocity_fluctuations_squared_x)
     Turbulent_kinetic_energy_y = 0.5 * np.mean(Velocity_fluctuations_squared_y)
+
+    # Combine both to get the total turbulent kinetic energy
 
     Turbulent_kinetic_energy = Turbulent_kinetic_energy_x + Turbulent_kinetic_energy_y
  
     return Turbulent_kinetic_energy
 
 
+print(3 % 5)
