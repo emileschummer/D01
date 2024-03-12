@@ -97,7 +97,7 @@ def average_vector_field(start_frame, end_frame):
     max_magnitude = np.max(magnitudes)
 
     # Define colormap from dark blue to bright red
-    cmap = plt.cm.get_cmap('coolwarm')
+    cmap = plt.cm.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(vmin=0, vmax=max_magnitude)
