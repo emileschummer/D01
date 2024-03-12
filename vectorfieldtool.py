@@ -95,8 +95,9 @@ def vectorfieldpng(file, frame_number):
 
     # Save the plot as an image
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    save_path = f"C:\\Users\\Wisse de Vries\\Documents\\aerospace\\vectorfield_frame_{frame_number}.png"
-
+    # Get the current directory of the script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    save_path = os.path.join(current_dir,'Data','B_J1','vectorfield_frame_{frame_number}.png')
     fig.savefig(save_path, format='png')
     plt.close(fig)  # Close the figure to release memory
     

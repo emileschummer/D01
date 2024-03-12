@@ -1,5 +1,5 @@
 import os
-from vectorfieldfun import vectorfieldplot
+from vectorfieldfun import vectorfieldpng
 import time
 from vectorfieldmany import vectorfieldmany
 import numpy as np
