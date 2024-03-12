@@ -1,14 +1,24 @@
 # imports
 import numpy as np
 
+
+"""
+
+This works for 2D vector fields, in the x-y plane. 
+The input is a 3D array, with the first two dimensions being the x and y coordinates, 
+and the third dimension being the velocity components in the x and y directions (V_x and V_y).
+
+"""
+
+
 # Vorticity, defined as the curl of the velocity field
 # Input the 2D vector field in one of the planes, output the vorticity field
 
 def Vorticity(Velocity_field):
 
-    # Claculate the partial derivatives of the velocity field
-    dVx_dy = np.gradient(Velocity_field[0], axis=1)
-    dVy_dx = np.gradient(Velocity_field[1], axis=0)
+    # Claculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
+    dVx_dy = np.gradient(Velocity_field[:, :, 0], axis=0)
+    dVy_dx = np.gradient(Velocity_field[:, :, 1], axis=1)
 
     # Calculate the vorticity field
     Vorticity_field = dVy_dx - dVx_dy
@@ -49,4 +59,5 @@ def Turbulent_kinetic_energy(Velocity_fluctuations):
     Turbulent_kinetic_energy = Turbulent_kinetic_energy_x + Turbulent_kinetic_energy_y
  
     return Turbulent_kinetic_energy
+
 
