@@ -33,7 +33,7 @@ def vectorfieldplot(file):
     max_magnitude = np.max(magnitudes)
 
     # Define colormap from dark blue to bright red
-    cmap = plt.cm.get_cmap('coolwarm')
+    cmap = plt.cm.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(vmin=0, vmax=max_magnitude)
@@ -44,7 +44,7 @@ def vectorfieldplot(file):
 
     # Add colorbar
     cbar = plt.colorbar()
-    cbar.set_label('Magnitude')
+    cbar.set_label('magnitude')
 
     # Setting x, y boundary limits
     plt.xlim(np.min(x_positions) - 1, np.max(x_positions) + 1)
