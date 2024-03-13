@@ -41,6 +41,7 @@ def vectorfieldplot(file):
     # Plotting Vector Field with QUIVER and colormap
     plt.quiver(x_positions, y_positions, u_magnitudes, v_magnitudes, magnitudes, cmap=cmap, norm=norm)
     plt.title('Vector Field with Color Scale')
+    
 
     # Add colorbar
     cbar = plt.colorbar()
