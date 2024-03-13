@@ -5,8 +5,9 @@ from vectorfieldmany import vectorfieldmany
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
-from matplotlib import cm
+from matplotlib import colormaps
 from Bins import loadbin
+from matplotlib.cm import ScalarMappable
 # Define the directory containing the data files
 data_directory = "Data/B_J1/Velocity"
 
@@ -91,7 +92,7 @@ def bin_average_vector_field(bin):
     max_magnitude = np.max(magnitudes)
 
     # Define colormap from dark blue to bright red
-    cmap = plt.cm.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(vmin=0, vmax=max_magnitude)
@@ -125,12 +126,12 @@ def bin_average_vector_field_image(bin):
     V_Velocities_lists = []
     
     # Assuming you have defined data_directory and end_frame somewhere in your code
-    data_directory = 'path_to_data_directory'
-    end_frame = 100  # Example end_frame
+    data_directory = 'Data/B_J1/Velocity'
+    
     
     for frame_number in frames:
         # Construct the file path for the current frame
-        file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+        file_path = os.path.join(data_directory, f"frame_{frame_number+1}.dat")
         
         # Get velocities
         velocities = np.loadtxt(file_path)
@@ -198,8 +199,12 @@ def bin_average_vector_field_image(bin):
     ax.quiver(x_positions, y_positions, average_U_arr, average_V_arr, magnitudes, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
 
-    # Add colorbar
-    cbar = plt.colorbar(ax=ax)
+    # Create a ScalarMappable object for colorbar
+    sm = ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])  # Pass an empty array
+
+    # Add colorbar using the ScalarMappable object
+    cbar = plt.colorbar(sm, ax=ax)
     cbar.set_label('Magnitude')
 
     # Setting x, y boundary limits
@@ -209,16 +214,24 @@ def bin_average_vector_field_image(bin):
     # Show plot with grid
     ax.grid()
 
-    # Create directory if it doesn't exist
-    bin_directory = 'Bin_vector_field'
-    os.makedirs(bin_directory, exist_ok=True)
+    # Create directory for storing images if it doesn't exist
+    output_directory = 'Bin_vector_field'
+    os.makedirs(output_directory, exist_ok=True)
     
-    # Save the figure as a high-quality image in the bin directory
-    output_path = os.path.join(bin_directory, f'bin_{bin}_vector_field.png')
+    # Save the figure as a high-quality image in the output directory
+    output_path = os.path.join(output_directory, f'bin_{bin}.png')
     plt.savefig(output_path, bbox_inches='tight')
+
 
     # Close the plot to release memory
     plt.close()
 
     # Return the output path
     return output_path
+
+
+
+bin=1
+while bin<37:
+    bin_average_vector_field_image(bin)
+    bin+=1
