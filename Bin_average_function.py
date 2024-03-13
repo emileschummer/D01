@@ -1,56 +1,49 @@
 import os
 from vectorfieldtool import vectorfieldplot
-import time
+
 from vectorfieldmany import vectorfieldmany
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib import cm
+from Bins import loadbin
 # Define the directory containing the data files
 data_directory = "Data/B_J1/Velocity"
 
 
-def average_vector_field(start_frame, end_frame):
+
+
+
+
+def bin_average_vector_field(bin):
+    
+    print('pizza')
+    frames=loadbin(bin)
     
     
-    frame_number = start_frame
     #amount of data points
     lenght_list = 35739
     
     #list of lists
     U_Velocities_lists=[]
     V_Velocities_lists=[]
+    print(frames)
     
-    
-    while True:
+    for frame_number in frames:
         # Construct the file path for the current frame
         file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
-        
-        #get velocities
+        print(frame_number)
+        # Get velocities
         velocities = np.loadtxt(file_path)
         
-        #create lists
+        # Create lists
         u_magnitudes = velocities[:, 0]
         v_magnitudes = velocities[:, 1]
         
-        #append list of lists
+        # Append list of lists
         U_Velocities_lists.append(u_magnitudes)
         V_Velocities_lists.append(v_magnitudes)
         
-        
-        
-        
-        # Increment frame number
-        frame_number += 1
-        if frame_number>end_frame:
-            break
-        
-        
-        
-        # Check if the next file exists
-        next_file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
-        if not os.path.exists(next_file_path):
-            break  # Exit the loop if the next file doesn't exist
     
     
     #lenght of sublist        
@@ -69,7 +62,7 @@ def average_vector_field(start_frame, end_frame):
     sum_V = [sum(sublist) for sublist in zip(*V_Velocities_lists)]
     
     #total amount of frames
-    total_frames=end_frame-start_frame
+    total_frames=len(frames)
     #U average
     # Divide each element in the sum_list by the divider
     average_U = [element / total_frames for element in sum_U]
@@ -118,3 +111,5 @@ def average_vector_field(start_frame, end_frame):
     # Show plot with grid
     plt.grid()
     plt.show()
+    
+bin_average_vector_field(1)
