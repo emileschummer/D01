@@ -28,12 +28,12 @@ def bin_average_vector_field(bin):
     #list of lists
     U_Velocities_lists=[]
     V_Velocities_lists=[]
-    print(frames)
+    
     
     for frame_number in frames:
         # Construct the file path for the current frame
         file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
-        print(frame_number)
+        
         # Get velocities
         velocities = np.loadtxt(file_path)
         
@@ -87,6 +87,10 @@ def bin_average_vector_field(bin):
     # Calculate magnitudes of each vector
     magnitudes = np.sqrt(average_U_arr ** 2 + average_V_arr ** 2)
 
+    non_zero_magnitudes = magnitudes[magnitudes > 0]  # Filter out zero values
+    lowest_non_zero_magnitude = np.min(non_zero_magnitudes)
+
+    
 
     # Find the maximum magnitude
     max_magnitude = np.max(magnitudes)
@@ -95,7 +99,7 @@ def bin_average_vector_field(bin):
     cmap = plt.colormaps.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=0, vmax=max_magnitude)
+    norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=max_magnitude)
 
     # Plotting Vector Field with QUIVER and colormap
     plt.quiver(x_positions, y_positions, average_U_arr, average_V_arr, magnitudes, cmap=cmap, norm=norm)
@@ -182,6 +186,9 @@ def bin_average_vector_field_image(bin):
 
     # Calculate magnitudes of each vector
     magnitudes = np.sqrt(average_U_arr ** 2 + average_V_arr ** 2)
+    
+    non_zero_magnitudes = magnitudes[magnitudes > 0]  # Filter out zero values
+    lowest_non_zero_magnitude = np.min(non_zero_magnitudes)
 
     # Find the maximum magnitude
     max_magnitude = np.max(magnitudes)
@@ -190,7 +197,7 @@ def bin_average_vector_field_image(bin):
     cmap = plt.cm.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=0, vmax=max_magnitude)
+    norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=max_magnitude)
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
@@ -228,7 +235,6 @@ def bin_average_vector_field_image(bin):
 
     # Return the output path
     return output_path
-
 
 
 bin=1
