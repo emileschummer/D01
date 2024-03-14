@@ -1,10 +1,10 @@
 
-def loadbin(bin):
+def loadbin(bin,plane,J_number):
     import numpy as np 
     #load data
-    path_bins = 'Data/B_J1/Binning/binds.dat'
+    path_bins = f"Data/{plane}_J{J_number}/Binning/binds.dat"
     path_counts = 'Data/B_J1/Binning/counts.dat'
-
+    
     # Load the bins
     bins = np.loadtxt(path_bins)
     # Load the counts

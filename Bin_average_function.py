@@ -19,7 +19,7 @@ from matplotlib.cm import ScalarMappable
 def bin_average_vector_field(bin,plane, J_number):
     
     
-    frames=loadbin(bin)
+    frames=loadbin(bin, plane, J_number)
     
     
     # Define the base path
@@ -132,7 +132,9 @@ def bin_average_vector_field(bin,plane, J_number):
 bin_average_vector_field(10,'B',1)
 
 def bin_average_vector_field_image(bin,plane, J_number):
-    frames = loadbin(bin)
+    
+    #load the frames of the bin
+    frames = loadbin(bin, plane, J_number)
     
     # Amount of data points
     length_list = 35739
@@ -250,8 +252,9 @@ def bin_average_vector_field_image(bin,plane, J_number):
     # Return the output path
     return output_path
 
-
+'''
 bin=1
 while bin<37:
     bin_average_vector_field_image(bin, 'B', 1)
     bin+=1
+'''
