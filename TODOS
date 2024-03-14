@@ -3,7 +3,7 @@ Calculations:
 -> Create vector fields from data for each time step, keep track of the angle for each time step
     -> This should be done for the three propeller configurations
 
--> Obtain time averaged fields
+-> Obtain time averaged fields 
 
 -> Obtain phase averaged fields
     -> Match every timestep to a blade angle

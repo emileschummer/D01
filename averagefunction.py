@@ -12,6 +12,7 @@ data_directory = "Data/B_J1/Velocity"
 
 def average_vector_field(start_frame, end_frame):
     
+    
     frame_number = start_frame
     #amount of data points
     lenght_list = 35739
