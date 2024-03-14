@@ -1,0 +1,61 @@
+# imports
+import numpy as np
+import matplotlib.pyplot as plt
+
+"""
+
+This works for 2D vector fields, in the x-y plane. 
+The input is a 3D array, with the first two dimensions being the x and y coordinates, 
+and the third dimension being the velocity components in the x and y directions (V_x and V_y).
+
+"""
+
+
+# Vorticity, defined as the curl of the velocity field
+# Input the 2D vector field in one of the planes, output the vorticity field
+
+def Vorticity(u_magnitudes, v_magnitudes):
+    # Claculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
+    dVx_dy = np.gradient(u_magnitudes)
+    dVy_dx = np.gradient(v_magnitudes)
+
+    # Calculate the vorticity field
+    Vorticity_field = dVy_dx - dVx_dy
+
+    return Vorticity_field
+
+
+# Mean flow velocity fluctuations, definded as the difference between the instantaneous velocity field and the mean velocity field
+# Input the instantaneous velocity field and the mean velocity field, output the velocity fluctuations field
+
+def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr):
+    # Check that both arrays are the same shape
+    if u_magnitudes.shape != average_U_arr.shape and isinstance(average_U_arr, np.ndarray) and v_magnitudes.shape != average_V_arr.shape and isinstance(average_V_arr, np.ndarray):
+        print('Velocity_field and Average_velocity_field must be the same shape!')
+
+    else:
+        # Calculate the difference between the instantaneous velocity field and the mean velocity field
+        Velocity_fluctuations_u = u_magnitudes - average_U_arr
+        Velocity_fluctuations_v = v_magnitudes - average_V_arr
+
+        return Velocity_fluctuations_u, Velocity_fluctuations_v
+
+
+# Turbulent kinetic energy, defined as the mean of the square of the velocity fluctuations
+# Input the velocity fluctuations field, output the turbulent kinetic energy
+
+def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
+    # Calculate the square of the velocity fluctuations
+    Velocity_fluctuations_squared_u = np.square(Velocity_fluctuations_u)
+    Velocity_fluctuations_squared_v = np.square(Velocity_fluctuations_v)
+
+    # Calculate the turbulent kinetic energy field x and y
+    Turbulent_kinetic_energy_u = 0.5 * np.mean(Velocity_fluctuations_squared_u)
+    Turbulent_kinetic_energy_v = 0.5 * np.mean(Velocity_fluctuations_squared_v)
+
+    # Combine both to get the total turbulent kinetic energy
+
+    Turbulent_kinetic_energy = Turbulent_kinetic_energy_u + Turbulent_kinetic_energy_v
+
+    return Turbulent_kinetic_energy
+
