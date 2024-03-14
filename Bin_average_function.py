@@ -237,7 +237,84 @@ def bin_average_vector_field_image(bin):
     return output_path
 
 
+
+def bin_average_velocities(bin):
+    
+    
+    frames=loadbin(bin)
+    
+    
+    #amount of data points
+    lenght_list = 35739
+    
+    #list of lists
+    U_Velocities_lists=[]
+    V_Velocities_lists=[]
+    
+    
+    for frame_number in frames:
+        # Construct the file path for the current frame
+        file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+        
+        # Get velocities
+        velocities = np.loadtxt(file_path)
+        
+        # Create lists
+        u_magnitudes = velocities[:, 0]
+        v_magnitudes = velocities[:, 1]
+        
+        # Append list of lists
+        U_Velocities_lists.append(u_magnitudes)
+        V_Velocities_lists.append(v_magnitudes)
+        
+    
+    
+    #lenght of sublist        
+    sublist_length = len(U_Velocities_lists[0])
+    assert all(len(sublist) == sublist_length for sublist in U_Velocities_lists), "All sublists must have the same length"
+
+    # Use a nested list comprehension to sum each sublist element-wise
+    sum_U = [sum(sublist) for sublist in zip(*U_Velocities_lists)]
+
+    
+    #same method for V
+    sublist_length = len(V_Velocities_lists[0])
+    assert all(len(sublist) == sublist_length for sublist in V_Velocities_lists), "All sublists must have the same length"
+
+    # Use a nested list comprehension to sum each sublist element-wise
+    sum_V = [sum(sublist) for sublist in zip(*V_Velocities_lists)]
+    
+    #total amount of frames
+    total_frames=len(frames)
+    #U average
+    # Divide each element in the sum_list by the divider
+    average_U = [element / total_frames for element in sum_U]
+    #V average
+    # Divide each element in the sum_list by the divider
+    average_V = [element / total_frames for element in sum_V]
+    
+    positions_file_path = "Data/B_J1/XY.dat"
+    positions = np.loadtxt(positions_file_path)  
+    # Read data from files
+
+    average_U_arr = np.array(average_U)
+    average_V_arr = np.array(average_V)
+
+    return average_U_arr, average_V_arr
+
+
+
+
+
+
+
+
+
+
+
+'''
 bin=1
 while bin<37:
     bin_average_vector_field_image(bin)
     bin+=1
+'''
