@@ -16,20 +16,18 @@ from matplotlib.cm import ScalarMappable
 
 
 
-def bin_average_vector_field(bin, J_number):
+def bin_average_vector_field(bin,plane, J_number):
     
     
     frames=loadbin(bin)
     
     
     # Define the base path
-    base_path = "Data/B_J"
+    
+    
 
-# Define the variable part of the path
-    variable_value = 1  # You can change this variable to read different files
-
-# Construct the full path dynamically
-    data_directory = f"{base_path}{variable_value}/Velocity"
+    # Construct the full path dynamically
+    data_directory = f"Data/{plane}_J{J_number}/Velocity"
     
     #amount of data points
     lenght_list = 35739
@@ -131,20 +129,22 @@ def bin_average_vector_field(bin, J_number):
     plt.grid()
     plt.show()
     
-bin_average_vector_field(10)
+bin_average_vector_field(10,'B',1)
 
-def bin_average_vector_field_image(bin):
+def bin_average_vector_field_image(bin,plane, J_number):
     frames = loadbin(bin)
     
     # Amount of data points
     length_list = 35739
+    
+    
     
     # List of lists
     U_Velocities_lists = []
     V_Velocities_lists = []
     
     # Assuming you have defined data_directory and end_frame somewhere in your code
-    data_directory = 'Data/B_J1/Velocity'
+    data_directory = f"Data/{plane}_J{J_number}/Velocity"
     
     
     for frame_number in frames:
@@ -236,7 +236,7 @@ def bin_average_vector_field_image(bin):
     ax.grid()
 
     # Create directory for storing images if it doesn't exist
-    output_directory = 'Bin_vector_field'
+    output_directory = f'Vectorfield_plots/plane{plane}_J{J_number}'
     os.makedirs(output_directory, exist_ok=True)
     
     # Save the figure as a high-quality image in the output directory
@@ -250,9 +250,8 @@ def bin_average_vector_field_image(bin):
     # Return the output path
     return output_path
 
-'''
+
 bin=1
 while bin<37:
-    bin_average_vector_field_image(bin)
+    bin_average_vector_field_image(bin, 'B', 1)
     bin+=1
-'''
