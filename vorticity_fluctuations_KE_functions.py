@@ -22,7 +22,28 @@ def Vorticity(u_magnitudes, v_magnitudes):
     # Calculate the vorticity field
     Vorticity_field = dVy_dx - dVx_dy
 
-    return Vorticity_field
+    #acquiring positions
+    positions_file_path = "Data/B_J1/XY.dat"
+    positions = np.loadtxt(positions_file_path)  
+    # Read data from files
+    # Extract x, y positions from the positions data
+    x_positions = positions[:, 0]
+    y_positions = positions[:, 1]
+
+
+    # Create scatter plot
+    plt.scatter(x_positions, y_positions, c=Vorticity_field, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
+
+    # Adding a color bar to represent the magnitude of 'V'
+    plt.colorbar(label='Magnitude of Vorticity Field')
+
+    # Labelling the axes
+    plt.xlabel('X axis')
+    plt.ylabel('Y axis')
+    plt.title('Scatter plot representing three variables')
+
+    # Show plot
+    plt.show()
 
 
 # Mean flow velocity fluctuations, definded as the difference between the instantaneous velocity field and the mean velocity field
@@ -30,15 +51,47 @@ def Vorticity(u_magnitudes, v_magnitudes):
 
 def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr):
     # Check that both arrays are the same shape
-    if u_magnitudes.shape != average_U_arr.shape and isinstance(average_U_arr, np.ndarray) and v_magnitudes.shape != average_V_arr.shape and isinstance(average_V_arr, np.ndarray):
-        print('Velocity_field and Average_velocity_field must be the same shape!')
 
-    else:
-        # Calculate the difference between the instantaneous velocity field and the mean velocity field
-        Velocity_fluctuations_u = u_magnitudes - average_U_arr
-        Velocity_fluctuations_v = v_magnitudes - average_V_arr
+    # Calculate the difference between the instantaneous velocity field and the mean velocity field
+    Velocity_fluctuations_u = u_magnitudes - average_U_arr
+    Velocity_fluctuations_v = v_magnitudes - average_V_arr
 
-        return Velocity_fluctuations_u, Velocity_fluctuations_v
+    #acquiring positions
+    positions_file_path = "Data/B_J1/XY.dat"
+    positions = np.loadtxt(positions_file_path)  
+    # Read data from files
+    # Extract x, y positions from the positions data
+    x_positions = positions[:, 0]
+    y_positions = positions[:, 1]
+
+
+    # Create scatter plot for the u component
+    plt.scatter(x_positions, y_positions, c=Velocity_fluctuations_u, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
+
+    # Adding a color bar to represent the magnitude of 'V'
+    plt.colorbar(label='Magnitude of Vorticity Field')
+
+    # Labelling the axes
+    plt.xlabel('X axis')
+    plt.ylabel('Y axis')
+    plt.title('Scatter plot representing three variables')
+
+    # Show plot
+    plt.show()
+
+    # Create scatter plot for the v component
+    plt.scatter(x_positions, y_positions, c=Velocity_fluctuations_v, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
+
+    # Adding a color bar to represent the magnitude of 'V'
+    plt.colorbar(label='Magnitude of Vorticity Field')
+
+    # Labelling the axes
+    plt.xlabel('X axis')
+    plt.ylabel('Y axis')
+    plt.title('Scatter plot representing three variables')
+
+    # Show plot
+    plt.show()
 
 
 # Turbulent kinetic energy, defined as the mean of the square of the velocity fluctuations

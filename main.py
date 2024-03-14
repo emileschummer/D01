@@ -7,6 +7,8 @@ This is the main run file
 """
 
 # Import the necessary libraries
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 # Select the plane of interest and propeller configuration.
