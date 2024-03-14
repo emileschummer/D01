@@ -92,6 +92,8 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
 
     # Show plot
     plt.show()
+    
+    return Velocity_fluctuations_u, Velocity_fluctuations_v
 
 
 # Turbulent kinetic energy, defined as the mean of the square of the velocity fluctuations
