@@ -9,18 +9,27 @@ from matplotlib import colormaps
 from Bins import loadbin
 from matplotlib.cm import ScalarMappable
 # Define the directory containing the data files
-data_directory = "Data/B_J1/Velocity"
 
 
 
 
 
 
-def bin_average_vector_field(bin):
+
+def bin_average_vector_field(bin, J_number):
     
     
     frames=loadbin(bin)
     
+    
+    # Define the base path
+    base_path = "Data/B_J"
+
+# Define the variable part of the path
+    variable_value = 1  # You can change this variable to read different files
+
+# Construct the full path dynamically
+    data_directory = f"{base_path}{variable_value}/Velocity"
     
     #amount of data points
     lenght_list = 35739
@@ -40,6 +49,11 @@ def bin_average_vector_field(bin):
         # Create lists
         u_magnitudes = velocities[:, 0]
         v_magnitudes = velocities[:, 1]
+        
+        
+        
+        
+        
         
         # Append list of lists
         U_Velocities_lists.append(u_magnitudes)
@@ -96,10 +110,10 @@ def bin_average_vector_field(bin):
     max_magnitude = np.max(magnitudes)
 
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('tab20')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=max_magnitude)
+    norm = Normalize(vmin= lowest_non_zero_magnitude, vmax=max_magnitude)
 
     # Plotting Vector Field with QUIVER and colormap
     plt.quiver(x_positions, y_positions, average_U_arr, average_V_arr, magnitudes, cmap=cmap, norm=norm)
@@ -117,7 +131,7 @@ def bin_average_vector_field(bin):
     plt.grid()
     plt.show()
     
-
+bin_average_vector_field(10)
 
 def bin_average_vector_field_image(bin):
     frames = loadbin(bin)
@@ -236,8 +250,9 @@ def bin_average_vector_field_image(bin):
     # Return the output path
     return output_path
 
-
+'''
 bin=1
 while bin<37:
     bin_average_vector_field_image(bin)
     bin+=1
+'''
