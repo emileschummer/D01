@@ -17,7 +17,7 @@ and the third dimension being the velocity components in the x and y directions 
 def Vorticity(u_magnitudes, v_magnitudes):
 
     #acquiring positions
-    positions_file_path = "Data/B_J1/XY.dat"
+    positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
     # Extract x, y positions from the positions data
@@ -59,7 +59,7 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
     Velocity_fluctuations_v = v_magnitudes - average_V_arr
 
     #acquiring positions
-    positions_file_path = "Data/B_J1/XY.dat"
+    positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
     # Extract x, y positions from the positions data
