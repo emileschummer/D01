@@ -117,6 +117,19 @@ def bin_average_vector_field(bin,plane, J_number):
     plt.quiver(x_positions, y_positions, average_U_arr, average_V_arr, magnitudes, cmap=cmap, norm=norm)
     plt.title('Vector Field with Color Scale')
 
+    x_sorted_indices = np.argsort(x_positions)
+    y_sorted_indices = np.argsort(y_positions)
+    x_positions_sorted = x_positions[x_sorted_indices]
+    y_positions_sorted = y_positions[y_sorted_indices]
+    average_U_arr_sorted = average_U_arr[x_sorted_indices]
+    average_V_arr_sorted = average_V_arr[y_sorted_indices]
+    print(x_positions_sorted, y_positions_sorted, average_U_arr_sorted, average_V_arr_sorted,)
+    
+
+
+
+    #streamlines
+    plt.streamplot(x_positions_sorted, y_positions_sorted, average_U_arr_sorted, average_V_arr_sorted, color='red')
     # Add colorbar
     cbar = plt.colorbar()
     cbar.set_label('Magnitude')
