@@ -25,8 +25,6 @@ from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations
     # Convert into bin averaged flow fields
 
 
-# Make fields into 3D arrays
-
 
 # Obtain the flow properties for both bin averaged and time averaged flow fields
 
