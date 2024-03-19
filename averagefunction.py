@@ -12,6 +12,7 @@ data_directory = "Data/B_J1/Velocity"
 
 def average_vector_field(start_frame, end_frame):
     
+    
     frame_number = start_frame
     #amount of data points
     lenght_list = 35739
@@ -117,3 +118,79 @@ def average_vector_field(start_frame, end_frame):
     # Show plot with grid
     plt.grid()
     plt.show()
+    
+def average_values(start_frame, end_frame):
+        #define frame number
+        frame_number=start_frame
+        #amount of data points
+        lenght_list = 35739
+        
+        #list of lists
+        U_Velocities_lists=[]
+        V_Velocities_lists=[]
+        
+        
+        while True:
+            # Construct the file path for the current frame
+            file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+            
+            #get velocities
+            velocities = np.loadtxt(file_path)
+            print("Shape of velocities array:", velocities.shape)
+            print(frame_number)
+            #create lists
+            u_magnitudes = velocities[:, 0]
+            v_magnitudes = velocities[:, 1]
+            
+            #append list of lists
+            U_Velocities_lists.append(u_magnitudes)
+            V_Velocities_lists.append(v_magnitudes)
+            
+            
+            
+            
+            # Increment frame number
+            frame_number += 1
+            if frame_number>end_frame:
+                break
+            
+            
+            
+            # Check if the next file exists
+            next_file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+            if not os.path.exists(next_file_path):
+                break  # Exit the loop if the next file doesn't exist
+        
+        
+        #lenght of sublist        
+        sublist_length = len(U_Velocities_lists[0])
+        assert all(len(sublist) == sublist_length for sublist in U_Velocities_lists), "All sublists must have the same length"
+
+        # Use a nested list comprehension to sum each sublist element-wise
+        sum_U = [sum(sublist) for sublist in zip(*U_Velocities_lists)]
+
+        
+        #same method for V
+        sublist_length = len(V_Velocities_lists[0])
+        assert all(len(sublist) == sublist_length for sublist in V_Velocities_lists), "All sublists must have the same length"
+
+        # Use a nested list comprehension to sum each sublist element-wise
+        sum_V = [sum(sublist) for sublist in zip(*V_Velocities_lists)]
+        
+        #total amount of frames
+        total_frames=end_frame-start_frame
+        #U average
+        # Divide each element in the sum_list by the divider
+        average_U = [element / total_frames for element in sum_U]
+        #V average
+        # Divide each element in the sum_list by the divider
+        average_V = [element / total_frames for element in sum_V]
+        
+        positions_file_path = "Data/B_J1/XY.dat"
+        positions = np.loadtxt(positions_file_path)  
+        # Read data from files
+
+        average_U_arr = np.array(average_U)
+        average_V_arr = np.array(average_V)
+        
+        return average_U_arr, average_V_arr       

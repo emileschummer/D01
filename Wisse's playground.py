@@ -1,6 +1,8 @@
-from averagefunction import average_vector_field
-from vectorfieldtool import vectorfieldplot    
-    
+from Bin_average_function import bin_average_vector_field
+from Bin_average_function import bin_average_vector_field_image
 
-#average_vector_field(1, 4000)
-vectorfieldplot("Data/B_J1/Velocity/frame_1.dat")
+
+bin=1
+while bin<37:
+    bin_average_vector_field_image(bin)
+    bin+=1
