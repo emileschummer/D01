@@ -30,7 +30,7 @@ u_magnitudes, v_magnitudes = bin_average_velocities(10)
 # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
 Vorticity(u_magnitudes, v_magnitudes)
 Velocity_fluctuations_u, Velocity_fluctuations_v = Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr)
-Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v)
+print(Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v))
 
 
 

@@ -2,8 +2,8 @@
 def loadbin(bin):
     import numpy as np 
     #load data
-    path_bins = 'Data/B_J1/Binning/binds.dat'
-    path_counts = 'Data/B_J1/Binning/counts.dat'
+    path_bins = 'B_J1/Binning/binds.dat'
+    path_counts = 'B_J1/Binning/counts.dat'
 
     # Load the bins
     bins = np.loadtxt(path_bins)
