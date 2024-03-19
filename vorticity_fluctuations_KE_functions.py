@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 """
 
 This works for 2D vector fields, in the x-y plane. 
