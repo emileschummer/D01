@@ -15,12 +15,6 @@ and the third dimension being the velocity components in the x and y directions 
 # Input the 2D vector field in one of the planes, output the vorticity field
 
 def Vorticity(u_magnitudes, v_magnitudes):
-    # Claculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
-    dVx_dy = np.gradient(u_magnitudes)
-    dVy_dx = np.gradient(v_magnitudes)
-
-    # Calculate the vorticity field
-    Vorticity_field = dVy_dx - dVx_dy
 
     #acquiring positions
     positions_file_path = "Data/B_J1/XY.dat"
@@ -30,6 +24,14 @@ def Vorticity(u_magnitudes, v_magnitudes):
     x_positions = positions[:, 0]
     y_positions = positions[:, 1]
 
+    # Claculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
+    dVx_dy = np.gradient(u_magnitudes, x_positions)
+    dVy_dx = np.gradient(v_magnitudes, y_positions)
+
+    # Calculate the vorticity field
+    Vorticity_field = dVy_dx - dVx_dy
+
+    
 
     # Create scatter plot
     plt.scatter(x_positions, y_positions, c=Vorticity_field, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
