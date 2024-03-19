@@ -136,8 +136,7 @@ def average_values(start_frame, end_frame):
             
             #get velocities
             velocities = np.loadtxt(file_path)
-            print("Shape of velocities array:", velocities.shape)
-            print(frame_number)
+            
             #create lists
             u_magnitudes = velocities[:, 0]
             v_magnitudes = velocities[:, 1]
