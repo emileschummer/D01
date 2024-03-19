@@ -21,21 +21,20 @@ from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations
     # Obtain unsteady flow field
 
     # Convert into time averaged flow fields
+average_U_arr, average_V_arr = average_values(1, 4000)
 
     # Convert into bin averaged flow fields
-
-
-# Make fields into 3D arrays
-
-
-# Obtain the flow properties for both bin averaged and time averaged flow fields
-
-
-# Plot the flow properties / Visualize
-
-
-average_U_arr, average_V_arr = average_values(1, 4000)
 u_magnitudes, v_magnitudes = bin_average_velocities(10)
+
+
+# Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
 Vorticity(u_magnitudes, v_magnitudes)
 Velocity_fluctuations_u, Velocity_fluctuations_v = Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr)
 Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v)
+
+
+
+
+
+
+
