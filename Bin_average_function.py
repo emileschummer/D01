@@ -293,7 +293,7 @@ def bin_average_velocities(bin):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "Data/B_J1/XY.dat"
+    positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
 
