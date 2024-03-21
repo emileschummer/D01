@@ -313,7 +313,3 @@ def bin_average_velocities(bin, plane, J_number):
 
 
 
-bin=1
-while bin<37:
-    bin_average_vector_field_image(bin, 'B', 1)
-    bin+=1

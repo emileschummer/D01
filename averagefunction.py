@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib import cm
 # Define the directory containing the data files
-data_directory = "B_J1/Velocity"
 
 
-def average_vector_field(start_frame, end_frame):
+
+def average_vector_field(start_frame, end_frame, plane, J_number):
     
-    
+    data_directory = f"{plane}_J{J_number}/Velocity"
     frame_number = start_frame
     #amount of data points
     lenght_list = 35739
@@ -77,7 +77,7 @@ def average_vector_field(start_frame, end_frame):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "B_J1/XY.dat"
+    positions_file_path = f"{plane}_J{J_number}/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
 
@@ -119,7 +119,9 @@ def average_vector_field(start_frame, end_frame):
     plt.grid()
     plt.show()
     
-def average_values(start_frame, end_frame):
+def average_values(start_frame, end_frame, plane, J_number):
+    
+        data_directory = f"{plane}_J{J_number}/Velocity"
         #define frame number
         frame_number=start_frame
         #amount of data points
@@ -185,7 +187,7 @@ def average_values(start_frame, end_frame):
         # Divide each element in the sum_list by the divider
         average_V = [element / total_frames for element in sum_V]
         
-        positions_file_path = "B_J1/XY.dat"
+        positions_file_path = f"{plane}_J{J_number}/XY.dat"
         positions = np.loadtxt(positions_file_path)  
         # Read data from files
 
