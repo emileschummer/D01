@@ -25,12 +25,13 @@ average_U_arr, average_V_arr = average_values(1, 4000)
 
     # Convert into bin averaged flow fields
 u_magnitudes, v_magnitudes = bin_average_velocities(10, 'B', 1)
-
-
+#print(u_magnitudes[350], v_magnitudes[350])
+print('blep1')
 # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
 Vorticity(u_magnitudes, v_magnitudes)
-Velocity_fluctuations_u, Velocity_fluctuations_v = Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr)
-print(Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v))
+print('blep2')
+#Velocity_fluctuations_u, Velocity_fluctuations_v = Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr)
+#print(Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v))
 
 
 

@@ -24,17 +24,27 @@ def Vorticity(u_magnitudes, v_magnitudes):
     # Extract x, y positions from the positions data
     x_positions = positions[:, 0]
     y_positions = positions[:, 1]
-
+    print(u_magnitudes, v_magnitudes)
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
-    dVx_dy, dVx_dx = np.gradient(u_magnitudes, y_positions, x_positions)
-    dVy_dy, dVy_dx = np.gradient(v_magnitudes, y_positions, x_positions)
+    dVx = np.gradient(u_magnitudes)  # Compute the gradient along the y-axis
+    dVx_dy = dVx[0]  # Gradient along the y-axis
+   # dVx_dx = dVx[1]  # Gradient along the x-axis
+    print(dVx_dy[100])
+    print(dVx_dy[200])
+    print(dVx_dy[350])
+    dVy = np.gradient(v_magnitudes)  # Compute the gradient along the x-axis
+    #dVy_dy = dVy[0]  # Gradient along the y-axis
+    dVy_dx = dVy[1]  # Gradient along the x-axis
+    print(dVy_dx[100])
+    print(dVy_dx[200])
+    print(dVy_dx[350])
+    print(dVy_dx[1500])
     # Calculate the vorticity field
-    Vorticity_field = dVy_dx - dVx_dy
-
-    
+    Vorticity_field = dVy_dx #- dVx_dy
+    print(Vorticity_field)
 
     # Create scatter plot
-    plt.scatter(x_positions, y_positions, c=Vorticity_field, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
+    plt.scatter(x_positions, y_positions, s=Vorticity_field, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
 
     # Adding a color bar to represent the magnitude of 'V'
     plt.colorbar(label='Magnitude of Vorticity Field')
