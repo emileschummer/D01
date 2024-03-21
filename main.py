@@ -24,7 +24,7 @@ from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations
 average_U_arr, average_V_arr = average_values(1, 4000)
 
     # Convert into bin averaged flow fields
-u_magnitudes, v_magnitudes = bin_average_velocities(10)
+u_magnitudes, v_magnitudes = bin_average_velocities(10, 'B', 1)
 
 
 # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
