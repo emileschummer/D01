@@ -194,7 +194,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
     max_magnitude = np.max(magnitudes)
 
     # Define colormap from dark blue to bright red
-    cmap = plt.cm.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=max_magnitude)
@@ -222,7 +222,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
     ax.grid()
 
     # Create directory for storing images if it doesn't exist
-    output_directory = 'Bin_vector_field'
+    output_directory = f"Results\{plane}\J{J_number}\Flow_fields"
     os.makedirs(output_directory, exist_ok=True)
     
     # Save the figure as a high-quality image in the output directory
@@ -312,9 +312,8 @@ def bin_average_velocities(bin, plane, J_number):
 
 
 
-'''
+
 bin=1
 while bin<37:
-    bin_average_vector_field_image(bin)
+    bin_average_vector_field_image(bin, 'B', 1)
     bin+=1
-'''
