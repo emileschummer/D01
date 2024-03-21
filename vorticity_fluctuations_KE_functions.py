@@ -22,12 +22,13 @@ def Vorticity(u_magnitudes, v_magnitudes):
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
     # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
-    y_positions = positions[:, 1]
+    x_positions = positions[:40, 0]
+    y_positions = positions[:40, 1]
 
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
-    dVx_dy, dVx_dx = np.gradient(u_magnitudes, y_positions, x_positions)
-    dVy_dy, dVy_dx = np.gradient(v_magnitudes, y_positions, x_positions)
+    dVx_dy = np.gradient(u_magnitudes)
+    dVy_dx = np.gradient(v_magnitudes)
+
     # Calculate the vorticity field
     Vorticity_field = dVy_dx - dVx_dy
 
