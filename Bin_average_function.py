@@ -19,7 +19,7 @@ data_directory = "B_J1/Velocity"
 def bin_average_vector_field(bin, plane, J_number):
     
     
-    frames=loadbin(bin)
+    frames=loadbin(bin, plane, J_number)
     data_directory = f"{plane}_J{J_number}/Velocity"
     
     #amount of data points
@@ -120,7 +120,7 @@ def bin_average_vector_field(bin, plane, J_number):
 
 
 def bin_average_vector_field_image(bin, plane, J_number):
-    frames = loadbin(bin)
+    frames = loadbin(bin, plane, J_number)
     
     # Amount of data points
     length_list = 35739
@@ -241,7 +241,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
 def bin_average_velocities(bin, plane, J_number):
     
     
-    frames=loadbin(bin)
+    frames=loadbin(bin, plane, J_number)
     data_directory = f"{plane}_J{J_number}/Velocity"
     
     #amount of data points
