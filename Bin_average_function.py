@@ -16,11 +16,11 @@ data_directory = "B_J1/Velocity"
 
 
 
-def bin_average_vector_field(bin):
+def bin_average_vector_field(bin, plane, J_number):
     
     
-    frames=loadbin(bin)
-    
+    frames=loadbin(bin, plane, J_number)
+    data_directory = f"{plane}_J{J_number}/Velocity"
     
     #amount of data points
     lenght_list = 35739
@@ -71,7 +71,7 @@ def bin_average_vector_field(bin):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "B_J1/XY.dat"
+    positions_file_path = f"{plane}_J{J_number}/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
 
@@ -119,8 +119,8 @@ def bin_average_vector_field(bin):
     
 
 
-def bin_average_vector_field_image(bin):
-    frames = loadbin(bin)
+def bin_average_vector_field_image(bin, plane, J_number):
+    frames = loadbin(bin, plane, J_number)
     
     # Amount of data points
     length_list = 35739
@@ -130,7 +130,7 @@ def bin_average_vector_field_image(bin):
     V_Velocities_lists = []
     
     # Assuming you have defined data_directory and end_frame somewhere in your code
-    data_directory = 'B_J1/Velocity'
+    data_directory = f"{plane}_J{J_number}/Velocity"
     
     
     for frame_number in frames:
@@ -173,7 +173,7 @@ def bin_average_vector_field_image(bin):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "B_J1/XY.dat"
+    positions_file_path = f"{plane}_J{J_number}/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     
     # Read data from files
@@ -238,11 +238,11 @@ def bin_average_vector_field_image(bin):
 
 
 
-def bin_average_velocities(bin):
+def bin_average_velocities(bin, plane, J_number):
     
     
-    frames=loadbin(bin)
-    
+    frames=loadbin(bin, plane, J_number)
+    data_directory = f"{plane}_J{J_number}/Velocity"
     
     #amount of data points
     lenght_list = 35739
@@ -293,7 +293,7 @@ def bin_average_velocities(bin):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "B_J1/XY.dat"
+    positions_file_path = f"{plane}_J{J_number}/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
 
