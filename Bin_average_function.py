@@ -9,7 +9,7 @@ from matplotlib import colormaps
 from Bins import loadbin
 from matplotlib.cm import ScalarMappable
 # Define the directory containing the data files
-data_directory = "Data/B_J1/Velocity"
+data_directory = "B_J1/Velocity"
 
 
 
@@ -71,7 +71,7 @@ def bin_average_vector_field(bin):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "Data/B_J1/XY.dat"
+    positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
 
@@ -130,7 +130,7 @@ def bin_average_vector_field_image(bin):
     V_Velocities_lists = []
     
     # Assuming you have defined data_directory and end_frame somewhere in your code
-    data_directory = 'Data/B_J1/Velocity'
+    data_directory = 'B_J1/Velocity'
     
     
     for frame_number in frames:
@@ -173,7 +173,7 @@ def bin_average_vector_field_image(bin):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "Data/B_J1/XY.dat"
+    positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     
     # Read data from files
@@ -293,7 +293,7 @@ def bin_average_velocities(bin):
     # Divide each element in the sum_list by the divider
     average_V = [element / total_frames for element in sum_V]
     
-    positions_file_path = "Data/B_J1/XY.dat"
+    positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
 
