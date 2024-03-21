@@ -16,36 +16,26 @@ and the third dimension being the velocity components in the x and y directions 
 # Input the 2D vector field in one of the planes, output the vorticity field
 
 def Vorticity(u_magnitudes, v_magnitudes):
-
+    print(u_magnitudes, v_magnitudes)
     #acquiring positions
     positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
     # Extract x, y positions from the positions data
-    x_positions = positions[:40, 0]
-    y_positions = positions[:40, 1]
-    print(u_magnitudes, v_magnitudes)
+    x_positions = positions[:, 0]
+    print(x_positions)
+    y_positions = positions[:, 1]
+    print(y_positions)
+    
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
     dVx_dy = np.gradient(u_magnitudes)
+    print(dVx_dy)
     dVy_dx = np.gradient(v_magnitudes)
-
-    dVx = np.gradient(u_magnitudes)  # Compute the gradient along the y-axis
-    dVx_dy = dVx[0]  # Gradient along the y-axis
-   # dVx_dx = dVx[1]  # Gradient along the x-axis
-    print(dVx_dy[100])
-    print(dVx_dy[200])
-    print(dVx_dy[350])
-    dVy = np.gradient(v_magnitudes)  # Compute the gradient along the x-axis
-    #dVy_dy = dVy[0]  # Gradient along the y-axis
-    dVy_dx = dVy[1]  # Gradient along the x-axis
-    print(dVy_dx[100])
-    print(dVy_dx[200])
-    print(dVy_dx[350])
-    print(dVy_dx[1500])
+    
+    #print(dVy_dx[1500])
     # Calculate the vorticity field
-    Vorticity_field = dVy_dx #- dVx_dy
-    print(Vorticity_field)
-
+    Vorticity_field = dVy_dx - dVx_dy
+ 
     # Create scatter plot
     plt.scatter(x_positions, y_positions, s=Vorticity_field, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
 
