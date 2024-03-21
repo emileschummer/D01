@@ -105,6 +105,7 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
 # Input the velocity fluctuations field, output the turbulent kinetic energy
 
 def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
+    """
     # Calculate the square of the velocity fluctuations
     Velocity_fluctuations_squared_u = np.square(Velocity_fluctuations_u)
     Velocity_fluctuations_squared_v = np.square(Velocity_fluctuations_v)
@@ -116,6 +117,40 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     # Combine both to get the total turbulent kinetic energy
 
     Turbulent_kinetic_energy = Turbulent_kinetic_energy_u + Turbulent_kinetic_energy_v
+    """
+    
+    
+    #create zero-valued arrays with the same number of entries as u_magnitudes and v_magnitudes
+    sum_v_squared = np.zeros(35738)
+    sum_u_squared = np.zeros(35738)
 
-    return Turbulent_kinetic_energy
+
+    #for loop that for each bin, gets the velocity fluctuations, calculates the squares of the fluctuations, and adds them to a list
+    for i in range(35):
+
+        #add line that inputs u_magnitudes and v_magnitudes of current bin[i]
+        #add line that gets the time averaged values: average_U_arr and average_V_arr
+
+
+        #calculating velocity fluctuations
+        Velocity_fluctuations_u, Velocity_fluctuations_v = Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr)
+
+
+        #calculating the squares of the values
+        u_squared = np.square(Velocity_fluctuations_u)
+        v_squared = np.square(Velocity_fluctuations_v)
+    
+
+        #adding the new values to the previous array
+        sum_u_squared = np.add(sum_u_squared, u_squared)
+        sum_v_squared = np.add(sum_v_squared, v_squared)
+
+
+    #calculating mean of fluctuations squared
+    mean_of_squares_u = sum_u_squared / 35
+    mean_of_squares_v = sum_v_squared / 35
+    
+    turbulent_kinetic_energy = 0.5 * np.add(mean_of_squares_u, mean_of_squares_v)
+    
+    return turbulent_kinetic_energy
 
