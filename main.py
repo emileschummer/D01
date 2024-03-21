@@ -21,7 +21,7 @@ from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations
     # Obtain unsteady flow field
 
     # Convert into time averaged flow fields
-average_U_arr, average_V_arr = average_values(1, 4000)
+average_U_arr, average_V_arr = average_values(1, 40)
 
     # Convert into bin averaged flow fields
 u_magnitudes, v_magnitudes = bin_average_velocities(10, 'B', 1)
