@@ -47,7 +47,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number):
     ax.scatter(x_positions, y_positions, s=Vorticity_field, cmap='viridis')
     ax.set_title('Vector Field with Color Scale')
 
-    # Create a ScalarMappable object for colorbar
+    # Create a ScalarMappable object for colormap
     sm = ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])  # Pass an empty array
 
