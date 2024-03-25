@@ -12,12 +12,13 @@ def loadbin(bin,plane, J_number):
     
     index_dict = {}  # Dictionary to store indexes
     
-    # Iterate through the big list and populate the index dictionary
     for i, num in enumerate(bins):
+        # Adjust index by adding 1 to match one-based indexing
+        adjusted_index = i +1
         if num not in index_dict:
-            index_dict[num] = [i]
+            index_dict[num] = [adjusted_index]
         else:
-            index_dict[num].append(i)
+            index_dict[num].append(adjusted_index)
 
     
     # Retrieve the list corresponding to the given bin value
@@ -25,4 +26,5 @@ def loadbin(bin,plane, J_number):
         return index_dict[bin]
     else:
         return []
-            
+
+

@@ -44,7 +44,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
 
     # Plotting Vector Field with QUIVER and colormap
-    ax.scatter(x_positions, y_positions, c=Vorticity_field, cmap=cmap, norm=norm)
+    ax.scatter(x_positions, y_positions, s=Vorticity_field, c=Vorticity_field, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
 
     # Create a ScalarMappable object for colormap
@@ -69,7 +69,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     # Create directory for storing images if it doesn't exist
     output_directory = f"Results\{plane}\J{J_number}\Vorticity_fields"
     os.makedirs(output_directory, exist_ok=True)
-    bin=10
+    
     # Save the figure as a high-quality image in the output directory
     output_path = os.path.join(output_directory, f'bin_{bin}.png')
     plt.savefig(output_path, bbox_inches='tight')
