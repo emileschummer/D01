@@ -16,36 +16,26 @@ and the third dimension being the velocity components in the x and y directions 
 # Input the 2D vector field in one of the planes, output the vorticity field
 
 def Vorticity(u_magnitudes, v_magnitudes):
-
+    print(u_magnitudes, v_magnitudes)
     #acquiring positions
     positions_file_path = "B_J1/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
     # Extract x, y positions from the positions data
-    x_positions = positions[:40, 0]
-    y_positions = positions[:40, 1]
-    print(u_magnitudes, v_magnitudes)
+    x_positions = positions[:, 0]
+    print(x_positions)
+    y_positions = positions[:, 1]
+    print(y_positions)
+    
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
     dVx_dy = np.gradient(u_magnitudes)
+    print(dVx_dy)
     dVy_dx = np.gradient(v_magnitudes)
-
-    dVx = np.gradient(u_magnitudes)  # Compute the gradient along the y-axis
-    dVx_dy = dVx[0]  # Gradient along the y-axis
-   # dVx_dx = dVx[1]  # Gradient along the x-axis
-    print(dVx_dy[100])
-    print(dVx_dy[200])
-    print(dVx_dy[350])
-    dVy = np.gradient(v_magnitudes)  # Compute the gradient along the x-axis
-    #dVy_dy = dVy[0]  # Gradient along the y-axis
-    dVy_dx = dVy[1]  # Gradient along the x-axis
-    print(dVy_dx[100])
-    print(dVy_dx[200])
-    print(dVy_dx[350])
-    print(dVy_dx[1500])
+    
+    #print(dVy_dx[1500])
     # Calculate the vorticity field
-    Vorticity_field = dVy_dx #- dVx_dy
-    print(Vorticity_field)
-
+    Vorticity_field = dVy_dx - dVx_dy
+ 
     # Create scatter plot
     plt.scatter(x_positions, y_positions, s=Vorticity_field, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
 
@@ -115,6 +105,7 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
 # Input the velocity fluctuations field, output the turbulent kinetic energy
 
 def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
+    """
     # Calculate the square of the velocity fluctuations
     Velocity_fluctuations_squared_u = np.square(Velocity_fluctuations_u)
     Velocity_fluctuations_squared_v = np.square(Velocity_fluctuations_v)
@@ -126,6 +117,40 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     # Combine both to get the total turbulent kinetic energy
 
     Turbulent_kinetic_energy = Turbulent_kinetic_energy_u + Turbulent_kinetic_energy_v
+    """
+    
+    
+    #create zero-valued arrays with the same number of entries as u_magnitudes and v_magnitudes
+    sum_v_squared = np.zeros(35738)
+    sum_u_squared = np.zeros(35738)
 
-    return Turbulent_kinetic_energy
+
+    #for loop that for each bin, gets the velocity fluctuations, calculates the squares of the fluctuations, and adds them to a list
+    for i in range(35):
+
+        #add line that inputs u_magnitudes and v_magnitudes of current bin[i]
+        #add line that gets the time averaged values: average_U_arr and average_V_arr
+
+
+        #calculating velocity fluctuations
+        Velocity_fluctuations_u, Velocity_fluctuations_v = Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr)
+
+
+        #calculating the squares of the values
+        u_squared = np.square(Velocity_fluctuations_u)
+        v_squared = np.square(Velocity_fluctuations_v)
+    
+
+        #adding the new values to the previous array
+        sum_u_squared = np.add(sum_u_squared, u_squared)
+        sum_v_squared = np.add(sum_v_squared, v_squared)
+
+
+    #calculating mean of fluctuations squared
+    mean_of_squares_u = sum_u_squared / 35
+    mean_of_squares_v = sum_v_squared / 35
+    
+    turbulent_kinetic_energy = 0.5 * np.add(mean_of_squares_u, mean_of_squares_v)
+    
+    return turbulent_kinetic_energy
 
