@@ -10,7 +10,7 @@ This is the main run file
 import numpy as np
 import matplotlib.pyplot as plt
 from averagefunction import average_values
-from Bin_average_function import bin_average_velocities
+from Bin_average_function import bin_average_velocities, bin_average_vector_field_image
 from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations, Turbulent_kinetic_energy
 from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Turbulent_kinetic_energy
 
@@ -37,7 +37,9 @@ for i in range(1, 36):
     Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, 'B', 1, i)
     # Turbulent kinetic energy
     Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, 'B', 1, i)
-
+    #vector fields
+    bin_average_vector_field_image(i, 'B', 1)
+    
 
 
 

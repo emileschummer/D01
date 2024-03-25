@@ -39,7 +39,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     cmap = plt.colormaps.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=-2, vmax=2)
+    norm = Normalize(vmin=0, vmax=1.75)
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
@@ -240,7 +240,7 @@ def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_
     cmap = plt.colormaps.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=np.min(turbulent_kinetic_energy), vmax=np.max(turbulent_kinetic_energy))
+    norm = Normalize(vmin=0, vmax=1)
     
     
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)

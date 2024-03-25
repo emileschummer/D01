@@ -135,7 +135,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
     
     for frame_number in frames:
         # Construct the file path for the current frame
-        file_path = os.path.join(data_directory, f"frame_{frame_number+1}.dat")
+        file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
         
         # Get velocities
         velocities = np.loadtxt(file_path)
