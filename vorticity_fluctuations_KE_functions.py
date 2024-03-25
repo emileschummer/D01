@@ -54,7 +54,7 @@ def Vorticity(u_magnitudes, v_magnitudes):
 # Mean flow velocity fluctuations, definded as the difference between the instantaneous velocity field and the mean velocity field
 # Input the instantaneous velocity field and the mean velocity field, output the velocity fluctuations field
 
-def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr):
+def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr,plane, J_number):
     # Check that both arrays are the same shape
 
     # Calculate the difference between the instantaneous velocity field and the mean velocity field
@@ -62,7 +62,7 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
     Velocity_fluctuations_v = v_magnitudes - average_V_arr
 
     #acquiring positions
-    positions_file_path = "B_J1/XY.dat"
+    positions_file_path = f"{plane}_J{J_number}/XY.dat"
     positions = np.loadtxt(positions_file_path)  
     # Read data from files
     # Extract x, y positions from the positions data
@@ -70,34 +70,7 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
     y_positions = positions[:, 1]
 
 
-    # Create scatter plot for the u component
-    plt.scatter(x_positions, y_positions, c=Velocity_fluctuations_u, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
 
-    # Adding a color bar to represent the magnitude of 'V'
-    plt.colorbar(label='Horizontal Velocity Fluctuations Field')
-
-    # Labelling the axes
-    plt.xlabel('X axis')
-    plt.ylabel('Y axis')
-    plt.title('Scatter plot representing three variables')
-
-    # Show plot
-    plt.show()
-
-    # Create scatter plot for the v component
-    plt.scatter(x_positions, y_positions, c=Velocity_fluctuations_v, cmap='viridis') # 'c' is the colors, 'cmap' is the colormap
-
-    # Adding a color bar to represent the magnitude of 'V'
-    plt.colorbar(label='Vertical Velocity Fluctuations Field')
-
-    # Labelling the axes
-    plt.xlabel('X axis')
-    plt.ylabel('Y axis')
-    plt.title('Scatter plot representing three variables')
-
-    # Show plot
-    plt.show()
-    
     return Velocity_fluctuations_u, Velocity_fluctuations_v
 
 
