@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from averagefunction import average_values, time_average_image
 from Bin_average_function import bin_average_velocities, bin_average_vector_field_image
-from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations, Turbulent_kinetic_energy
+from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations
 from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Turbulent_kinetic_energy
 
 # Select the plane of interest and propeller configuration.
@@ -23,18 +23,20 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 
     # Convert into time averaged flow fields
 
-Planes=['A', 'B', 'C']
+Planes=['A', 'B']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(0,2):    
+    for j in range(1,2): #ADD 0
         average_U_arr, average_V_arr = average_values(1, 4000, plane, j)
+        print('ok')
         time_average_image(average_U_arr, average_V_arr, plane, j)
 
             # Convert into bin averaged flow fields
         for i in range(1, 37):
-            u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
-            if u_magnitudes==0:
+            print('bin', i)
+            error,u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
+            if error==0:
                 break
 
 
