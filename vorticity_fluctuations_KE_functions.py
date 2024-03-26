@@ -14,8 +14,8 @@ def Vorticity(u_magnitudes, v_magnitudes, x_positions, y_positions):
     # Output plots of the vorticity of the flow field
 
     # Define the grid spacing
-    dx = 0.9295 * 1000 # m
-    dy = 0.9295 * 1000 # m
+    dx = 0.9295 / 1000 # m
+    dy = 0.9295 / 1000 # m
 
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
     dVx_dy = np.gradient(u_magnitudes, dy, axis=0)
