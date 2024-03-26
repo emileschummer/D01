@@ -100,7 +100,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     cmap = plt.colormaps.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=-4, vmax=4)
+    norm = Normalize(vmin=np.min(Velocity_fluctuations_u), vmax=np.max(Velocity_fluctuations_u))
 
     
     
@@ -143,7 +143,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     plt.close()
         # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
-
+    norm = Normalize(vmin=np.min(Velocity_fluctuations_v), vmax=np.max(Velocity_fluctuations_v))
     # Plotting Vector Field with QUIVER and colormap
     ax.scatter(x_positions, y_positions, c=Velocity_fluctuations_v, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
@@ -240,7 +240,7 @@ def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_
     cmap = plt.colormaps.get_cmap('gist_rainbow')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=0, vmax=1)
+    norm = Normalize(vmin=0, vmax=np.max(turbulent_kinetic_energy))
     
     
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
