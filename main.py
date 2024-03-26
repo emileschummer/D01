@@ -19,6 +19,16 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 
 # Extract the data
 
+#acquiring positions
+positions_file_path = "B_J1/XY.dat"
+positions = np.loadtxt(positions_file_path)
+# Read data from files
+# Extract x, y positions from the positions data
+x_positions = positions[:, 0]
+# print(x_positions)
+y_positions = positions[:, 1]
+# print(y_positions)
+
     # Obtain unsteady flow field
 
     # Convert into time averaged flow fields

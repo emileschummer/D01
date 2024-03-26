@@ -3,42 +3,26 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-"""
 
-This works for 2D vector fields, in the x-y plane. 
-The input is a 3D array, with the first two dimensions being the x and y coordinates, 
-and the third dimension being the velocity components in the x and y directions (V_x and V_y).
+def Vorticity(u_magnitudes, v_magnitudes, x_positions, y_positions):
 
-"""
+    # Vorticity, defined as the curl of the velocity field
 
-
-# Vorticity, defined as the curl of the velocity field
-# Input the 2D vector field in one of the planes, output the vorticity field
-
-def Vorticity(u_magnitudes, v_magnitudes):
-    # print(u_magnitudes, v_magnitudes)
-    # print(np.max(u_magnitudes), np.max(v_magnitudes))
-    #acquiring positions
-    positions_file_path = "B_J1/XY.dat"
-    positions = np.loadtxt(positions_file_path)
-    # Read data from files
-    # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
-    # print(x_positions)
-    y_positions = positions[:, 1]
-    # print(y_positions)
+    # Input the 2D vector field in one of the planes, 
+    # u_magnitudes (np.array(2 dimensions)), v_magnitudes (np.array(2 dimensions))
+    # x_positions (np.array(1 dimension)), y_positions (np.array(1 dimension))
+    # Output plots of the vorticity of the flow field
 
     # Define the grid spacing
-    dx = 0.9295
-    dy = 0.9295
+    dx = 0.9295 * 1000 # m
+    dy = 0.9295 * 1000 # m
 
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
-    dVx_dy = np.gradient(u_magnitudes) / dx
-    # print(dVx_dy)
-    dVy_dx = np.gradient(v_magnitudes) / dy
+    dVx_dy = np.gradient(u_magnitudes, dy, axis=0)
+
+    dVy_dx = np.gradient(v_magnitudes, dx, axis=1)
     
-    #print(dVy_dx[1500])
-    # Calculate the vorticity field
+    # Calculate the vorticity field (it is a numpy array of the same shape as the input arrays)
     Vorticity_field = dVy_dx - dVx_dy
  
     # Create scatter plot
