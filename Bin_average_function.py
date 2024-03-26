@@ -14,6 +14,8 @@ data_directory = "B_J1/Velocity"
 
 
 
+
+
 def bin_average_vector_field(bin, plane, J_number):
     
     
