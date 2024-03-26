@@ -58,7 +58,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
     ax.set_xlabel('X axis')
     ax.set_ylabel('Y axis')
-    ax.set_title('Scatter plot representing three variables')
+    ax.set_title('Vorticity field')
 
     # Setting x, y boundary limits
     ax.set_xlim(np.min(x_positions) - 1, np.max(x_positions) + 1)

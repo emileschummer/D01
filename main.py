@@ -30,7 +30,7 @@ time_average_image(average_U_arr, average_V_arr, 'B', 1)
     # Convert into bin averaged flow fields
 for i in range(1, 37):
     u_magnitudes, v_magnitudes = bin_average_velocities(i, 'B', 1)
-    if len(u_magnitudes)==0:
+    if u_magnitudes==0:
         break
 
 
