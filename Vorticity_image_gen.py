@@ -36,10 +36,10 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
     
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=0, vmax=1.75)
+    norm = Normalize(vmin=-0.5, vmax=0.5)
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
