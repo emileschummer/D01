@@ -137,10 +137,10 @@ def bin_average_vector_field_image(bin, plane, J_number):
     max_magnitude = np.max(magnitudes)
 
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('magma')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=max_magnitude)
+    norm = Normalize(vmin=np.percentile(magnitudes, 5), vmax=np.percentile(magnitudes, 95))
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)

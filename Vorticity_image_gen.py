@@ -15,14 +15,16 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     #load positions
     x_positions, y_positions=position(plane, J_number)
     
-    
+    # Define the grid spacing
+    dx = 0.9295 / 1000 # m
+    dy = 0.9295 / 1000 # m
+
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
-    dVx_dy = np.gradient(u_magnitudes)
+    dVx_dy = np.gradient(u_magnitudes, dy, axis=0)
+
+    dVy_dx = np.gradient(v_magnitudes, dx, axis=0)
     
-    dVy_dx = np.gradient(v_magnitudes)
-    
-    #print(dVy_dx[1500])
-    # Calculate the vorticity field
+    # Calculate the vorticity field (it is a numpy array of the same shape as the input arrays)
     Vorticity_field = dVy_dx - dVx_dy
 
     # Create scatter plot
@@ -37,13 +39,13 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=-0.5, vmax=0.5)
+    norm = Normalize(vmin=np.percentile(Vorticity_field , 5), vmax=np.percentile(Vorticity_field, 95))
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
 
     # Plotting Vector Field with QUIVER and colormap
-    ax.scatter(x_positions, y_positions, s=Vorticity_field, c=Vorticity_field, cmap=cmap, norm=norm)
+    ax.scatter(x_positions, y_positions, c=Vorticity_field, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
 
     # Create a ScalarMappable object for colormap
@@ -88,10 +90,10 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
 
     x_positions, y_positions=position(plane, J_number)
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=np.min(Velocity_fluctuations_u), vmax=np.max(Velocity_fluctuations_u))
+    norm = Normalize(vmin=np.percentile(Velocity_fluctuations_u, 1), vmax=np.percentile(Velocity_fluctuations_u, 99))
 
     
     
@@ -134,7 +136,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     plt.close()
         # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
-    norm = Normalize(vmin=np.min(Velocity_fluctuations_v), vmax=np.max(Velocity_fluctuations_v))
+    norm = Normalize(vmin=np.percentile(Velocity_fluctuations_v, 1), vmax=np.percentile(Velocity_fluctuations_v, 99))
     # Plotting Vector Field with QUIVER and colormap
     ax.scatter(x_positions, y_positions, c=Velocity_fluctuations_v, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
@@ -292,10 +294,10 @@ def Turbulent_kinetic_energy(plane, J_number, bin):
     
     
         # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('magma')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=0, vmax=np.max(turbulent_kinetic_energy))
+    norm = Normalize(vmin=np.percentile(turbulent_kinetic_energy , 5), vmax=np.percentile(turbulent_kinetic_energy, 95))
     
     
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
