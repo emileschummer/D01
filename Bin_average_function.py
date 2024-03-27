@@ -224,7 +224,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
     ax.grid()
 
     # Create directory for storing images if it doesn't exist
-    output_directory = f"Results\{plane}\J{J_number}\Flow_fields"
+    output_directory = f"Results/{plane}/J{J_number}/Flow_fields"
     os.makedirs(output_directory, exist_ok=True)
     
     # Save the figure as a high-quality image in the output directory
@@ -236,7 +236,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
     plt.close()
 
     # Return the output path
-    return output_path
+    
 
 
 
@@ -246,7 +246,7 @@ def bin_average_velocities(bin, plane, J_number):
     frames=loadbin(bin, plane, J_number)
     data_directory = f"{plane}_J{J_number}/Velocity"
     if len(frames)==0:
-        return 0,0
+        return 0,0,0
     #amount of data points
     lenght_list = 35739
     
@@ -303,7 +303,7 @@ def bin_average_velocities(bin, plane, J_number):
     average_U_arr = np.array(average_U)
     average_V_arr = np.array(average_V)
 
-    return average_U_arr, average_V_arr
+    return 1,average_U_arr, average_V_arr
 
 
 
