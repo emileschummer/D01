@@ -4,18 +4,16 @@ from matplotlib.colors import Normalize
 import os
 from matplotlib.cm import ScalarMappable
 from vorticity_fluctuations_KE_functions import Velocity_fluctuations
+from positionfunction import position
+from Bins import loadbin
+from Bin_average_function import Calc
 
 
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
-    #acquiring positions
-    positions_file_path = f"{plane}_J{J_number}/XY.dat"
-    positions = np.loadtxt(positions_file_path)  
-    # Read data from files
-    # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
     
-    y_positions = positions[:, 1]
+    #load positions
+    x_positions, y_positions=position(plane, J_number)
     
     
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
@@ -88,14 +86,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     Velocity_fluctuations_u = u_magnitudes - average_U_arr
     Velocity_fluctuations_v = v_magnitudes - average_V_arr
 
-    #acquiring positions
-    positions_file_path = f"{plane}_J{J_number}/XY.dat"
-    positions = np.loadtxt(positions_file_path)  
-    # Read data from files
-    # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
-    y_positions = positions[:, 1]
-    
+    x_positions, y_positions=position(plane, J_number)
     # Define colormap from dark blue to bright red
     cmap = plt.colormaps.get_cmap('gist_rainbow')
 
@@ -180,7 +171,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     plt.close()
     
     
-def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, J_number, bin):
+def Turbulent_kinetic_energy(plane, J_number, bin):
     """
     # Calculate the square of the velocity fluctuations
     Velocity_fluctuations_squared_u = np.square(Velocity_fluctuations_u)
@@ -196,7 +187,7 @@ def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_
     """
     
     
-    #create zero-valued arrays with the same number of entries as u_magnitudes and v_magnitudes
+    """#create zero-valued arrays with the same number of entries as u_magnitudes and v_magnitudes
     sum_v_squared = np.zeros(35738)
     sum_u_squared = np.zeros(35738)
 
@@ -226,15 +217,79 @@ def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_
     mean_of_squares_u = sum_u_squared / 35
     mean_of_squares_v = sum_v_squared / 35
     
-    turbulent_kinetic_energy = 0.5 * np.add(mean_of_squares_u, mean_of_squares_v)
+    turbulent_kinetic_energy = 0.5 * np.add(mean_of_squares_u, mean_of_squares_v)"""
     
-    #acquiring positions
-    positions_file_path = f"{plane}_J{J_number}/XY.dat"
-    positions = np.loadtxt(positions_file_path)  
-    # Read data from files
-    # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
-    y_positions = positions[:, 1]
+    
+    frames=loadbin(bin, plane, J_number)
+
+    average_U_arr, average_V_arr=Calc(frames, plane,J_number)
+
+    # List of lists
+    U_fluctuations_lists = []
+    V_fluctuations_lists = []
+        
+    # Assuming you have defined data_directory and end_frame somewhere in your code
+    data_directory = f"{plane}_J{J_number}/Velocity"
+
+
+
+    for frame_number in frames:
+            # Construct the file path for the current frame
+            file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+            
+            # Get velocities
+            velocities = np.loadtxt(file_path)
+            
+            # Create lists
+            u_magnitudes = velocities[:, 0]
+            v_magnitudes = velocities[:, 1]
+            
+            
+            #Calc fluctuations
+            u_fluctuations=u_magnitudes-average_U_arr
+            v_fluctuations=v_magnitudes-average_V_arr
+            
+            # Append list of lists
+            U_fluctuations_lists.append(np.square(u_fluctuations))
+            V_fluctuations_lists.append(np.square(v_fluctuations))
+
+    sublist_length = len(U_fluctuations_lists[0])
+    assert all(len(sublist) == sublist_length for sublist in U_fluctuations_lists), "All sublists must have the same length"
+
+        # Use a nested list comprehension to sum each sublist element-wise
+    sum_U = [sum(sublist) for sublist in zip(*U_fluctuations_lists)]
+
+        # Same method for V
+    sublist_length = len(V_fluctuations_lists[0])
+    assert all(len(sublist) == sublist_length for sublist in V_fluctuations_lists), "All sublists must have the same length"
+
+        # Use a nested list comprehension to sum each sublist element-wise
+    sum_V = [sum(sublist) for sublist in zip(*V_fluctuations_lists)]
+        
+        # Total amount of frames
+    total_frames = len(frames)
+        
+        # U average
+        # Divide each element in the sum_list by the divider
+    average_U = [element / total_frames for element in sum_U]
+        
+        # V average
+        # Divide each element in the sum_list by the divider
+    average_V = [element / total_frames for element in sum_V]
+        
+        
+        # np.array from files
+    average_U_arr = np.array(average_U)
+    average_V_arr = np.array(average_V)
+
+    turbulent_kinetic_energy = 0.5 * np.add(average_U, average_V)
+    
+    
+    
+    
+    x_positions, y_positions=position(plane, J_number)
+    
+    
     
         # Define colormap from dark blue to bright red
     cmap = plt.colormaps.get_cmap('gist_rainbow')

@@ -33,7 +33,7 @@ y_positions = positions[:, 1]
 
     # Convert into time averaged flow fields
 
-Planes=['A', 'B']#Add C
+Planes=['B']#Add C
 
 for plane in Planes:
     print(plane)
@@ -55,7 +55,7 @@ for plane in Planes:
             # fluctuations_image
             Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
             # Turbulent kinetic energy
-            Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
+            Turbulent_kinetic_energy(plane, j, i)
             #vector fields
             bin_average_vector_field_image(i, plane, j)
     
