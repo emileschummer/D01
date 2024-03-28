@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib import cm
 from matplotlib.cm import ScalarMappable
+
 # Define the directory containing the data files
 
 
@@ -121,81 +122,41 @@ def average_vector_field(start_frame, end_frame, plane, J_number):
     plt.show()
     
 def average_values(start_frame, end_frame, plane, J_number):
+    # Define data directory
+    data_directory = f"{plane}_J{J_number}/Velocity"
     
-        data_directory = f"{plane}_J{J_number}/Velocity"
-        #define frame number
-        frame_number=start_frame
-        #amount of data points
-        lenght_list = 35739
+    # Initialize lists to store velocities
+    U_Velocities_lists = []
+    V_Velocities_lists = []
+    
+    # Loop through frames
+    for frame_number in range(start_frame, end_frame + 1):
+        # Construct file path for the current frame
+        file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
         
-        #list of lists
-        U_Velocities_lists=[]
-        V_Velocities_lists=[]
-        
-        
-        while True:
-            # Construct the file path for the current frame
-            file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
-            
-            #get velocities
+        # Check if file exists
+        if os.path.exists(file_path):
+            # Load velocities from file
             velocities = np.loadtxt(file_path)
             
-            #create lists
+            # Extract U and V velocities
             u_magnitudes = velocities[:, 0]
             v_magnitudes = velocities[:, 1]
             
-            #append list of lists
+            # Append to velocity lists
             U_Velocities_lists.append(u_magnitudes)
             V_Velocities_lists.append(v_magnitudes)
-            
-            
-            
-            
-            # Increment frame number
-            frame_number += 1
-            if frame_number>end_frame:
-                break
-            
-            
-            
-            # Check if the next file exists
-            next_file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
-            if not os.path.exists(next_file_path):
-                break  # Exit the loop if the next file doesn't exist
-        
-        
-        #lenght of sublist        
-        sublist_length = len(U_Velocities_lists[0])
-        assert all(len(sublist) == sublist_length for sublist in U_Velocities_lists), "All sublists must have the same length"
-
-        # Use a nested list comprehension to sum each sublist element-wise
-        sum_U = [sum(sublist) for sublist in zip(*U_Velocities_lists)]
-
-        
-        #same method for V
-        sublist_length = len(V_Velocities_lists[0])
-        assert all(len(sublist) == sublist_length for sublist in V_Velocities_lists), "All sublists must have the same length"
-
-        # Use a nested list comprehension to sum each sublist element-wise
-        sum_V = [sum(sublist) for sublist in zip(*V_Velocities_lists)]
-        
-        #total amount of frames
-        total_frames=end_frame-start_frame
-        #U average
-        # Divide each element in the sum_list by the divider
-        average_U = [element / total_frames for element in sum_U]
-        #V average
-        # Divide each element in the sum_list by the divider
-        average_V = [element / total_frames for element in sum_V]
-        
-        positions_file_path = f"{plane}_J{J_number}/XY.dat"
-        positions = np.loadtxt(positions_file_path)  
-        # Read data from files
-
-        average_U_arr = np.array(average_U)
-        average_V_arr = np.array(average_V)
-        
-        return average_U_arr, average_V_arr       
+        else:
+            break  # Exit loop if file doesn't exist
+    
+    # Calculate total frames
+    total_frames = len(U_Velocities_lists)
+    
+    # Calculate average U and V velocities
+    average_U = np.sum(U_Velocities_lists, axis=0) / total_frames
+    average_V = np.sum(V_Velocities_lists, axis=0) / total_frames
+    
+    return average_U, average_V
     
     
 def time_average_image(average_U_arr, average_V_arr, plane, J_number):
@@ -212,19 +173,19 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
     lowest_non_zero_magnitude = np.min(non_zero_magnitudes)
 
     # Find the maximum magnitude
-    max_magnitude = np.max(magnitudes)
+    
 
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('magma')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=max_magnitude)
+    norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=np.percentile(magnitudes, 95))
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
 
     # Plotting Vector Field with QUIVER and colormap
-    ax.quiver(x_positions, y_positions, average_U_arr, average_V_arr, magnitudes, cmap=cmap, norm=norm)
+    ax.scatter(x_positions, y_positions,  c=magnitudes, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
 
     # Create a ScalarMappable object for colorbar
