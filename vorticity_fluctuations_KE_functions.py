@@ -128,5 +128,5 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes):
     u_magnitudes_2D=np.array(u_magnitudes).reshape(214,167)
     v_magnitudes_2D=np.array(v_magnitudes).reshape(214,167)
     #array_2d = np.array(data).reshape(rows, cols)
-    print(u_magnitudes_2D)
+    # print(u_magnitudes_2D)
     return u_magnitudes_2D, v_magnitudes_2D
