@@ -19,11 +19,21 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 
 # Extract the data
 
+#acquiring positions
+positions_file_path = "B_J1/XY.dat"
+positions = np.loadtxt(positions_file_path)
+# Read data from files
+# Extract x, y positions from the positions data
+x_positions = positions[:, 0]
+# print(x_positions)
+y_positions = positions[:, 1]
+# print(y_positions)
+
     # Obtain unsteady flow field
 
     # Convert into time averaged flow fields
 
-Planes=['A', 'B']#Add C
+Planes=['B']#Add C
 
 for plane in Planes:
     print(plane)
@@ -45,7 +55,7 @@ for plane in Planes:
             # fluctuations_image
             Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
             # Turbulent kinetic energy
-            Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
+            Turbulent_kinetic_energy(plane, j, i)
             #vector fields
             bin_average_vector_field_image(i, plane, j)
     

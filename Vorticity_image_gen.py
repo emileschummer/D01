@@ -4,27 +4,27 @@ from matplotlib.colors import Normalize
 import os
 from matplotlib.cm import ScalarMappable
 from vorticity_fluctuations_KE_functions import Velocity_fluctuations
+from positionfunction import position
+from Bins import loadbin
+from Bin_average_function import Calc
 
 
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
-    #acquiring positions
-    positions_file_path = f"{plane}_J{J_number}/XY.dat"
-    positions = np.loadtxt(positions_file_path)  
-    # Read data from files
-    # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
     
-    y_positions = positions[:, 1]
+    #load positions
+    x_positions, y_positions=position(plane, J_number)
     
-    
+    # Define the grid spacing
+    dx = 0.9295 / 1000 # m
+    dy = 0.9295 / 1000 # m
+
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
-    dVx_dy = np.gradient(u_magnitudes)
+    dVx_dy = np.gradient(u_magnitudes, dy, axis=0)
+
+    dVy_dx = np.gradient(v_magnitudes, dx, axis=0)
     
-    dVy_dx = np.gradient(v_magnitudes)
-    
-    #print(dVy_dx[1500])
-    # Calculate the vorticity field
+    # Calculate the vorticity field (it is a numpy array of the same shape as the input arrays)
     Vorticity_field = dVy_dx - dVx_dy
 
     # Create scatter plot
@@ -36,16 +36,16 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
     
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=0, vmax=1.75)
+    norm = Normalize(vmin=np.percentile(Vorticity_field , 5), vmax=np.percentile(Vorticity_field, 95))
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
 
     # Plotting Vector Field with QUIVER and colormap
-    ax.scatter(x_positions, y_positions, s=Vorticity_field, c=Vorticity_field, cmap=cmap, norm=norm)
+    ax.scatter(x_positions, y_positions, c=Vorticity_field, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
 
     # Create a ScalarMappable object for colormap
@@ -88,19 +88,12 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     Velocity_fluctuations_u = u_magnitudes - average_U_arr
     Velocity_fluctuations_v = v_magnitudes - average_V_arr
 
-    #acquiring positions
-    positions_file_path = f"{plane}_J{J_number}/XY.dat"
-    positions = np.loadtxt(positions_file_path)  
-    # Read data from files
-    # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
-    y_positions = positions[:, 1]
-    
+    x_positions, y_positions=position(plane, J_number)
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=np.min(Velocity_fluctuations_u), vmax=np.max(Velocity_fluctuations_u))
+    norm = Normalize(vmin=np.percentile(Velocity_fluctuations_u, 1), vmax=np.percentile(Velocity_fluctuations_u, 99))
 
     
     
@@ -143,7 +136,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     plt.close()
         # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
-    norm = Normalize(vmin=np.min(Velocity_fluctuations_v), vmax=np.max(Velocity_fluctuations_v))
+    norm = Normalize(vmin=np.percentile(Velocity_fluctuations_v, 1), vmax=np.percentile(Velocity_fluctuations_v, 99))
     # Plotting Vector Field with QUIVER and colormap
     ax.scatter(x_positions, y_positions, c=Velocity_fluctuations_v, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
@@ -180,7 +173,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     plt.close()
     
     
-def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, J_number, bin):
+def Turbulent_kinetic_energy(plane, J_number, bin):
     """
     # Calculate the square of the velocity fluctuations
     Velocity_fluctuations_squared_u = np.square(Velocity_fluctuations_u)
@@ -196,7 +189,7 @@ def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_
     """
     
     
-    #create zero-valued arrays with the same number of entries as u_magnitudes and v_magnitudes
+    """#create zero-valued arrays with the same number of entries as u_magnitudes and v_magnitudes
     sum_v_squared = np.zeros(35738)
     sum_u_squared = np.zeros(35738)
 
@@ -226,21 +219,85 @@ def Turbulent_kinetic_energy(u_magnitudes, v_magnitudes, average_U_arr, average_
     mean_of_squares_u = sum_u_squared / 35
     mean_of_squares_v = sum_v_squared / 35
     
-    turbulent_kinetic_energy = 0.5 * np.add(mean_of_squares_u, mean_of_squares_v)
+    turbulent_kinetic_energy = 0.5 * np.add(mean_of_squares_u, mean_of_squares_v)"""
     
-    #acquiring positions
-    positions_file_path = f"{plane}_J{J_number}/XY.dat"
-    positions = np.loadtxt(positions_file_path)  
-    # Read data from files
-    # Extract x, y positions from the positions data
-    x_positions = positions[:, 0]
-    y_positions = positions[:, 1]
+    
+    frames=loadbin(bin, plane, J_number)
+
+    average_U_arr, average_V_arr=Calc(frames, plane,J_number)
+
+    # List of lists
+    U_fluctuations_lists = []
+    V_fluctuations_lists = []
+        
+    # Assuming you have defined data_directory and end_frame somewhere in your code
+    data_directory = f"{plane}_J{J_number}/Velocity"
+
+
+
+    for frame_number in frames:
+            # Construct the file path for the current frame
+            file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
+            
+            # Get velocities
+            velocities = np.loadtxt(file_path)
+            
+            # Create lists
+            u_magnitudes = velocities[:, 0]
+            v_magnitudes = velocities[:, 1]
+            
+            
+            #Calc fluctuations
+            u_fluctuations=u_magnitudes-average_U_arr
+            v_fluctuations=v_magnitudes-average_V_arr
+            
+            # Append list of lists
+            U_fluctuations_lists.append(np.square(u_fluctuations))
+            V_fluctuations_lists.append(np.square(v_fluctuations))
+
+    sublist_length = len(U_fluctuations_lists[0])
+    assert all(len(sublist) == sublist_length for sublist in U_fluctuations_lists), "All sublists must have the same length"
+
+        # Use a nested list comprehension to sum each sublist element-wise
+    sum_U = [sum(sublist) for sublist in zip(*U_fluctuations_lists)]
+
+        # Same method for V
+    sublist_length = len(V_fluctuations_lists[0])
+    assert all(len(sublist) == sublist_length for sublist in V_fluctuations_lists), "All sublists must have the same length"
+
+        # Use a nested list comprehension to sum each sublist element-wise
+    sum_V = [sum(sublist) for sublist in zip(*V_fluctuations_lists)]
+        
+        # Total amount of frames
+    total_frames = len(frames)
+        
+        # U average
+        # Divide each element in the sum_list by the divider
+    average_U = [element / total_frames for element in sum_U]
+        
+        # V average
+        # Divide each element in the sum_list by the divider
+    average_V = [element / total_frames for element in sum_V]
+        
+        
+        # np.array from files
+    average_U_arr = np.array(average_U)
+    average_V_arr = np.array(average_V)
+
+    turbulent_kinetic_energy = 0.5 * np.add(average_U, average_V)
+    
+    
+    
+    
+    x_positions, y_positions=position(plane, J_number)
+    
+    
     
         # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('gist_rainbow')
+    cmap = plt.colormaps.get_cmap('magma')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=0, vmax=np.max(turbulent_kinetic_energy))
+    norm = Normalize(vmin=np.percentile(turbulent_kinetic_energy , 5), vmax=np.percentile(turbulent_kinetic_energy, 95))
     
     
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
