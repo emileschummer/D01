@@ -15,7 +15,7 @@ def Vorticity(u_magnitudes, v_magnitudes, x_positions, y_positions):
 
     # Change u_magnitudes and v_magnitudes to 2D arrays
 
-    u_magnitudes, v_magnitudes = f(u_magnitudes, v_magnitudes)
+    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
 
 
     # Define the grid spacing
