@@ -8,10 +8,15 @@ def Vorticity(u_magnitudes, v_magnitudes, x_positions, y_positions):
 
     # Vorticity, defined as the curl of the velocity field
 
-    # Input the 2D vector field in one of the planes, 
+    # Input the 1D vector field in one of the planes, 
     # u_magnitudes (np.array(2 dimensions)), v_magnitudes (np.array(2 dimensions))
     # x_positions (np.array(1 dimension)), y_positions (np.array(1 dimension))
     # Output plots of the vorticity of the flow field
+
+    # Change u_magnitudes and v_magnitudes to 2D arrays
+
+    u_magnitudes, v_magnitudes = f(u_magnitudes, v_magnitudes)
+
 
     # Define the grid spacing
     dx = 0.9295 / 1000 # m
