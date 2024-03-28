@@ -29,7 +29,7 @@ for numeber in i:
 
     x_min, x_max = np.min(X)-1, np.max(X)+1
     y_min, y_max = np.min(Y)-1, np.max(Y)+1
-    
+    print(x_max,x_min,y_max,y_min)
 
 
     #x_range = np.linspace(x_min, x_max, 20)
@@ -40,7 +40,7 @@ for numeber in i:
 
     # Step 4: Plot the velocity vector field
     #plt.figure(figsize=(8, 6))
-    plt.quiver(X, Y, Vx, Vy, scale=None)
+    quiver = plt.quiver(X, Y, Vx, Vy, scale=None)
     plt.xlabel('X coordinate')
     plt.ylabel('Y coordinate')
     plt.title('Velocity Vector Field')
@@ -48,7 +48,10 @@ for numeber in i:
     plt.ylim(y_min, y_max)
     plt.grid(True)
     #plt.show()
-    savename = f"{numeber}_vector_field.png"
-    savedir= os.path.join(current_dir,'first300vectorfieldspngs')
-    plt.savefig(os.path.join(savedir,savename))
+    #savename = f"{numeber}_vector_field.png"
+    #savedir= os.path.join(current_dir,'first300vectorfieldspngs')
+    #plt.savefig(os.path.join(savedir,savename))
     plt.clf()
+    offsets = quiver.get_offsets().T  # Get the (x, y) coordinates of the starting points of vectors
+    rows, columns = offsets.shape
+    print(rows, columns)
