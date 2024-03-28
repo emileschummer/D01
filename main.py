@@ -19,7 +19,7 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 
 # Extract the data
 
-#acquiring positions
+# acquiring positions
 positions_file_path = "B_J1/XY.dat"
 positions = np.loadtxt(positions_file_path)
 # Read data from files
@@ -33,7 +33,7 @@ y_positions = positions[:, 1]
 
     # Convert into time averaged flow fields
 
-Planes=['B']#Add C
+Planes=['B'] # Add C
 
 for plane in Planes:
     print(plane)
@@ -45,7 +45,7 @@ for plane in Planes:
             # Convert into bin averaged flow fields
         for i in range(1, 37):
             print('bin', i)
-            error,u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
+            error, u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
             if error==0:
                 break
 

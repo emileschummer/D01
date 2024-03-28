@@ -16,7 +16,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
 
     #load positions
-    x_positions, y_positions=position(plane, J_number)
+    x_positions, y_positions = position(plane, J_number)
     
     # Define the grid spacing
     dx = 0.9295 / 1000 # m

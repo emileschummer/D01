@@ -180,7 +180,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
 def bin_average_velocities(bin, plane, J_number):
     
     #load frames
-    frames=loadbin(bin, plane, J_number)
+    frames = loadbin(bin, plane, J_number)
     #check if frames are in bin
     if len(frames)==0:
         return 0,0,0
