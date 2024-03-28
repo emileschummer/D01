@@ -127,3 +127,12 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     
     return turbulent_kinetic_energy
 
+def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes):
+
+    # TO USE THIS FUNCTION DO STH LIKE THIS: u_magnitudes, v_magnitudes (THIS ARE OLD, 1D LIST OF u and v magnitudes)= UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
+    #the function returns 2D arrays of u_magnitudes and v_magnitudes 214 rows, 167 columns
+    u_magnitudes_2D=np.array(u_magnitudes).reshape(214,167)
+    v_magnitudes_2D=np.array(v_magnitudes).reshape(214,167)
+    #array_2d = np.array(data).reshape(rows, cols)
+    print(u_magnitudes_2D)
+    return u_magnitudes_2D, v_magnitudes_2D
