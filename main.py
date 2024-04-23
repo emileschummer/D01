@@ -37,23 +37,27 @@ Planes=['A']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(1,2): #ADD 0
+    for j in range(0,1): #ADD 0
         average_U_arr, average_V_arr = average_values(1, 50, plane, j)
         print('ok')
+        
         time_average_image(average_U_arr, average_V_arr, plane, j)
 
         # Convert into bin averaged flow fields
         for i in range(1, 37):
-            print('bin', i)
-            error, u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
-            if error==0:
-                break
-
+            if j==0:
+                print('pizza')
+            else:
+                print('bin', i)
+                error, u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
+                if error==0:
+                    break
+                Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
 
         # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
             #Vorticity_image(u_magnitudes, v_magnitudes, plane, j, i)
             # fluctuations_image
-            Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
+            
             # Turbulent kinetic energy
             Turbulent_kinetic_energy(plane, j, i)
             #vector fields
