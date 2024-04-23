@@ -202,6 +202,16 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
 
     # Show plot with grid
     ax.grid()
+    
+    if plane == 'C':
+        # Load wall data points
+        wall_file_path = f"C_J1/wall.dat"
+        wall_data = np.loadtxt(wall_file_path)
+        wall_x = wall_data[:, 0]
+        wall_y = wall_data[:, 1]
+        # Plot wall line
+        ax.plot(wall_x, wall_y, color='blue', linestyle='-', linewidth=2, label='Wall')
+
 
     # Create directory for storing images if it doesn't exist
     output_directory = f"Results\{plane}\Averaged_flow"

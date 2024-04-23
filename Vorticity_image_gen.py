@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import os
 from matplotlib.cm import ScalarMappable
-from vorticity_fluctuations_KE_functions import Velocity_fluctuations
+from vorticity_fluctuations_KE_functions import Velocity_fluctuations, UandVmagnitudes1Dto2Dconverter
 from positionfunction import position
 from Bins import loadbin
 from Bin_average_function import Calc
@@ -11,9 +11,12 @@ from Bin_average_function import Calc
 
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
-    
+    # Convert u_magnitudes and v_magnitudes to 2D arrays
+
+    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
+
     #load positions
-    x_positions, y_positions=position(plane, J_number)
+    x_positions, y_positions = position(plane, J_number)
     
     # Define the grid spacing
     dx = 0.9295 / 1000 # m
@@ -22,7 +25,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
     dVx_dy = np.gradient(u_magnitudes, dy, axis=0)
 
-    dVy_dx = np.gradient(v_magnitudes, dx, axis=0)
+    dVy_dx = np.gradient(v_magnitudes, dx, axis=1)
     
     # Calculate the vorticity field (it is a numpy array of the same shape as the input arrays)
     Vorticity_field = dVy_dx - dVx_dy

@@ -8,10 +8,15 @@ def Vorticity(u_magnitudes, v_magnitudes, x_positions, y_positions):
 
     # Vorticity, defined as the curl of the velocity field
 
-    # Input the 2D vector field in one of the planes, 
+    # Input the 1D vector field in one of the planes, 
     # u_magnitudes (np.array(2 dimensions)), v_magnitudes (np.array(2 dimensions))
     # x_positions (np.array(1 dimension)), y_positions (np.array(1 dimension))
     # Output plots of the vorticity of the flow field
+
+    # Change u_magnitudes and v_magnitudes to 2D arrays
+
+    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
+
 
     # Define the grid spacing
     dx = 0.9295 / 1000 # m
@@ -116,3 +121,15 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     
     return turbulent_kinetic_energy
 
+def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes):
+
+    print(len(u_magnitudes), len(v_magnitudes))
+
+    # TO USE THIS FUNCTION DO STH LIKE THIS: u_magnitudes, v_magnitudes (THIS ARE OLD, 1D LIST OF u and v magnitudes)= UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
+    #the function returns 2D arrays of u_magnitudes and v_magnitudes 214 rows, 167 columns
+    u_magnitudes_2D=np.array(u_magnitudes).reshape(214,167)
+    v_magnitudes_2D=np.array(v_magnitudes).reshape(214,167)
+
+    #array_2d = np.array(data).reshape(rows, cols)
+    # print(u_magnitudes_2D)
+    return u_magnitudes_2D, v_magnitudes_2D

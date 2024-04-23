@@ -1,92 +1,42 @@
-from Bin_average_function import bin_average_vector_field
-from Bin_average_function import Calc
-from Bin_average_function import bin_average_velocities
-from Vorticity_image_gen import Vorticity_image
-from vorticity_fluctuations_KE_functions import Vorticity
-from Bins import loadbin
-import numpy as np
-import os
-import matplotlib.pyplot as plt
-from matplotlib.cm import ScalarMappable
-from positionfunction import position
-plane='B'
-bin=10
-J_number=1
+import random
+from scipy import interpolate as inp
 
-frames=loadbin(bin, plane, J_number)
 
-average_U_arr, average_V_arr=Calc(frames, plane,J_number)
+def generate_grid_points(rows, cols):
+    grid_points = []
+    for i in range(rows):
+        for j in range(cols):
+            grid_points.append((i, j))
+    return grid_points
 
-# List of lists
-U_fluctuations_lists = []
-V_fluctuations_lists = []
+rows = 5  # Number of rows in the grid
+cols = 4  # Number of columns in the grid
+
+grid_points = generate_grid_points(rows, cols)
+print("Grid points in ascending order:")
+for point in grid_points:
+    print(point)
     
-# Assuming you have defined data_directory and end_frame somewhere in your code
-data_directory = f"{plane}_J{J_number}/Velocity"
 
 
+def generate_random_values(num_values):
+    random_values = [random.random() for _ in range(num_values)]
+    return random_values
 
-for frame_number in frames:
-        # Construct the file path for the current frame
-        file_path = os.path.join(data_directory, f"frame_{frame_number}.dat")
-        
-        # Get velocities
-        velocities = np.loadtxt(file_path)
-        
-        # Create lists
-        u_magnitudes = velocities[:, 0]
-        v_magnitudes = velocities[:, 1]
-        
-        
-        #Calc fluctuations
-        u_fluctuations=u_magnitudes-average_U_arr
-        v_fluctuations=v_magnitudes-average_V_arr
-        
-        # Append list of lists
-        U_fluctuations_lists.append(np.square(u_fluctuations))
-        V_fluctuations_lists.append(np.square(v_magnitudes))
+rows = 5  # Number of rows in the grid
+cols = 4  # Number of columns in the grid
 
-sublist_length = len(U_fluctuations_lists[0])
-assert all(len(sublist) == sublist_length for sublist in U_fluctuations_lists), "All sublists must have the same length"
+grid_points = generate_grid_points(rows, cols)
+num_points = len(grid_points)
 
-    # Use a nested list comprehension to sum each sublist element-wise
-sum_U = [sum(sublist) for sublist in zip(*U_fluctuations_lists)]
+random_values = generate_random_values(num_points)
 
-    # Same method for V
-sublist_length = len(V_fluctuations_lists[0])
-assert all(len(sublist) == sublist_length for sublist in V_fluctuations_lists), "All sublists must have the same length"
+sorted_indices = sorted(range(len(grid_points)), key=lambda k: grid_points[k])
+sorted_grid_points = [grid_points[i] for i in sorted_indices]
+sorted_random_values = [random_values[i] for i in sorted_indices]
 
-    # Use a nested list comprehension to sum each sublist element-wise
-sum_V = [sum(sublist) for sublist in zip(*V_fluctuations_lists)]
-    
-    # Total amount of frames
-total_frames = len(frames)
-    
-    # U average
-    # Divide each element in the sum_list by the divider
-average_U = [element / total_frames for element in sum_U]
-    
-    # V average
-    # Divide each element in the sum_list by the divider
-average_V = [element / total_frames for element in sum_V]
-    
-    
-    # np.array from files
-average_U_arr = np.array(average_U)
-average_V_arr = np.array(average_V)
+print("Grid points in ascending order with corresponding random values:")
+for point, value in zip(sorted_grid_points, sorted_random_values):
+    print(f"Point: {point}, Value: {value}")
 
-turbulent_kinetic_energy = 0.5 * np.add(average_U, average_V)
-x_positions, y_positions=position(plane, J_number)
-    
-plt.scatter(x_positions, y_positions, c=turbulent_kinetic_energy, cmap='gist_rainbow') # 'c' is the colors, 'cmap' is the colormap
-
-# Adding a color bar to represent the magnitude of 'V'
-plt.colorbar(label='Magnitude of Vorticity Field')
-
-# Labelling the axes
-plt.xlabel('X axis')
-plt.ylabel('Y axis')
-plt.title('Scatter plot representing three variables')
-
-# Show plot
-plt.show()
+interpolator = inp.RegularGridInterpolator(sorted_grid_points, sorted_random_values, method='linear')

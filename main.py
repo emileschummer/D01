@@ -20,7 +20,7 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 # Extract the data
 
 #acquiring positions
-positions_file_path = "B_J1/XY.dat"
+positions_file_path = "C_J1/XY.dat"
 positions = np.loadtxt(positions_file_path)
 # Read data from files
 # Extract x, y positions from the positions data
@@ -33,32 +33,31 @@ y_positions = positions[:, 1]
 
     # Convert into time averaged flow fields
 
-Planes=['B']#Add C
+Planes=['A']#Add C
 
 for plane in Planes:
     print(plane)
     for j in range(1,2): #ADD 0
-        average_U_arr, average_V_arr = average_values(1, 4000, plane, j)
+        average_U_arr, average_V_arr = average_values(1, 50, plane, j)
         print('ok')
         time_average_image(average_U_arr, average_V_arr, plane, j)
 
-            # Convert into bin averaged flow fields
+        # Convert into bin averaged flow fields
         for i in range(1, 37):
             print('bin', i)
-            error,u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
+            error, u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
             if error==0:
                 break
 
 
         # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
-            Vorticity_image(u_magnitudes, v_magnitudes, plane, j, i)
+            #Vorticity_image(u_magnitudes, v_magnitudes, plane, j, i)
             # fluctuations_image
             Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
             # Turbulent kinetic energy
             Turbulent_kinetic_energy(plane, j, i)
             #vector fields
             bin_average_vector_field_image(i, plane, j)
-    
 
 
 
