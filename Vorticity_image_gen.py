@@ -125,6 +125,16 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
 
     # Show plot with grid
     ax.grid()
+    
+    #wall check
+    if plane == 'C':
+        # Load wall data points
+        wall_file_path = f"C_J{J_number}/wall.dat"
+        wall_data = np.loadtxt(wall_file_path)
+        wall_x = wall_data[:, 0]
+        wall_y = wall_data[:, 1]
+        # Plot wall line
+        ax.plot(wall_x, wall_y, color='blue', linestyle='-', linewidth=2, label='Wall')
 
     # Create directory for storing images if it doesn't exist
     output_directory = f"Results\{plane}\J{J_number}\Fluctations_fields"
@@ -162,6 +172,16 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
 
     # Show plot with grid
     ax.grid()
+    
+    #wall check
+    if plane == 'C':
+        # Load wall data points
+        wall_file_path = f"C_J{J_number}/wall.dat"
+        wall_data = np.loadtxt(wall_file_path)
+        wall_x = wall_data[:, 0]
+        wall_y = wall_data[:, 1]
+        # Plot wall line
+        ax.plot(wall_x, wall_y, color='blue', linestyle='-', linewidth=2, label='Wall')
 
     # Create directory for storing images if it doesn't exist
     output_directory = f"Results\{plane}\J{J_number}\Fluctations_fields"
@@ -327,6 +347,16 @@ def Turbulent_kinetic_energy(plane, J_number, bin):
 
     # Show plot with grid
     ax.grid()
+    
+    #wall check
+    if plane == 'C':
+        # Load wall data points
+        wall_file_path = f"C_J{J_number}/wall.dat"
+        wall_data = np.loadtxt(wall_file_path)
+        wall_x = wall_data[:, 0]
+        wall_y = wall_data[:, 1]
+        # Plot wall line
+        ax.plot(wall_x, wall_y, color='blue', linestyle='-', linewidth=2, label='Wall')
 
     # Create directory for storing images if it doesn't exist
     output_directory = f"Results\{plane}\J{J_number}\Turbelentkineticenergy_fields"

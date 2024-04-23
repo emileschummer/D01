@@ -37,7 +37,7 @@ Planes=['C']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(0,1): #ADD 0
+    for j in range(1,2): #ADD 0
         average_U_arr, average_V_arr = average_values(1, 2500, plane, j)
         print('ok')
         
