@@ -146,7 +146,7 @@ def bin_average_vector_field_image(bin, plane, J_number):
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
 
     # Plotting Vector Field with QUIVER and colormap
-    ax.quiver(x_positions, y_positions, average_U_arr, average_V_arr, magnitudes, cmap=cmap, norm=norm)
+    ax.scatter(x_positions, y_positions, c=magnitudes, cmap=cmap, norm=norm)
     ax.set_title('Vector Field with Color Scale')
 
     # Create a ScalarMappable object for colorbar

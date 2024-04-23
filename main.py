@@ -37,8 +37,8 @@ Planes=['A']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(0,1): #ADD 0
-        average_U_arr, average_V_arr = average_values(1, 50, plane, j)
+    for j in range(1,2): #ADD 0
+        average_U_arr, average_V_arr = average_values(1, 4000, plane, j)
         print('ok')
         
         time_average_image(average_U_arr, average_V_arr, plane, j)
