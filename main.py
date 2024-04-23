@@ -20,7 +20,7 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 # Extract the data
 
 #acquiring positions
-positions_file_path = "C_J1/XY.dat"
+positions_file_path = "B_J1/XY.dat"
 positions = np.loadtxt(positions_file_path)
 # Read data from files
 # Extract x, y positions from the positions data
@@ -33,7 +33,7 @@ y_positions = positions[:, 1]
 
     # Convert into time averaged flow fields
 
-Planes=['A']#Add C
+Planes=['B']#Add C
 
 for plane in Planes:
     print(plane)
