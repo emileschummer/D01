@@ -172,12 +172,15 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
     non_zero_magnitudes = magnitudes[magnitudes > 0]  # Filter out zero values
     lowest_non_zero_magnitude = np.min(non_zero_magnitudes)
 
-    # Find the maximum magnitude
+    # scrub NaN values
     
+    
+    
+        
 
     # Define colormap from dark blue to bright red
     cmap = plt.colormaps.get_cmap('magma')
-
+    
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(vmin=lowest_non_zero_magnitude, vmax=np.percentile(magnitudes, 95))
 
@@ -205,7 +208,7 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
     
     if plane == 'C':
         # Load wall data points
-        wall_file_path = f"C_J1/wall.dat"
+        wall_file_path = f"C_J{J_number}/wall.dat"
         wall_data = np.loadtxt(wall_file_path)
         wall_x = wall_data[:, 0]
         wall_y = wall_data[:, 1]
