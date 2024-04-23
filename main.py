@@ -33,7 +33,7 @@ y_positions = positions[:, 1]
 
     # Convert into time averaged flow fields
 
-Planes=['B']#Add C
+Planes=['A']#Add C
 
 for plane in Planes:
     print(plane)
