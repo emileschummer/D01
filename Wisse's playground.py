@@ -76,7 +76,6 @@ amount_of_steps=space_array/step_size
 rounded_steps=np.floor(amount_of_steps)
 
 
-New_Y_value=lowest_y_array-step_size
 
 
 
@@ -135,5 +134,21 @@ Mv_array=np.divide(extracted_v,space_array)
 
 Cu=-Mu_array*wall_postion_y
 Cv=-Mv_array*wall_postion_y
+print(rounded_steps)
+rounded_steps=rounded_steps[:, 1]
 
+# Initialize a list to store new y values
+new_ys = []
 
+# Generate new y values
+for y, n in zip(lowest_y_array, rounded_steps):
+    # Create an array of n new y values starting from y, with step_size increments
+    new_y_values = y + np.arange(1, n + 1) * step_size
+    new_ys.append(new_y_values)
+
+# Convert list of arrays into a single array for easier handling if needed
+new_ys_array = np.concatenate(new_ys)
+
+# Print results
+print("New y values:")
+print(new_ys_array)
