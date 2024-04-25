@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
 def Vorticity(u_magnitudes, v_magnitudes, x_positions, y_positions):
 
     # Vorticity, defined as the curl of the velocity field
@@ -46,7 +45,6 @@ def Vorticity(u_magnitudes, v_magnitudes, x_positions, y_positions):
 
 
 # Mean flow velocity fluctuations, definded as the difference between the instantaneous velocity field and the mean velocity field
-# Input the instantaneous velocity field and the mean velocity field, output the velocity fluctuations field
 
 def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr,plane, J_number):
     # Check that both arrays are the same shape
@@ -69,7 +67,6 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
 
 
 # Turbulent kinetic energy, defined as the mean of the square of the velocity fluctuations
-# Input the velocity fluctuations field, output the turbulent kinetic energy
 
 def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     """
@@ -123,13 +120,9 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
 
 def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes):
 
-    print(len(u_magnitudes), len(v_magnitudes))
-
     # TO USE THIS FUNCTION DO STH LIKE THIS: u_magnitudes, v_magnitudes (THIS ARE OLD, 1D LIST OF u and v magnitudes)= UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
     #the function returns 2D arrays of u_magnitudes and v_magnitudes 214 rows, 167 columns
-    u_magnitudes_2D=np.array(u_magnitudes).reshape(214,167)
-    v_magnitudes_2D=np.array(v_magnitudes).reshape(214,167)
+    u_magnitudes_2D = np.array(u_magnitudes).reshape(167,214)
+    v_magnitudes_2D = np.array(v_magnitudes).reshape(167,214)
 
-    #array_2d = np.array(data).reshape(rows, cols)
-    # print(u_magnitudes_2D)
     return u_magnitudes_2D, v_magnitudes_2D
