@@ -12,34 +12,29 @@ from Bin_average_function import Calc
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
     # Convert u_magnitudes and v_magnitudes to 2D arrays
-
     u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
 
     #load positions
     x_positions, y_positions = position(plane, J_number)
-    
+
+    x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions)
+    x_positions = x_positions[10:-10, 10:-10]
+    y_positions = y_positions[10:-10, 10:-10]
+
     # Define the grid spacing
     dx = 0.9295 / 1000 # m
     dy = 0.9295 / 1000 # m
 
-    # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y
-    dVx_dy = np.gradient(u_magnitudes, dy, axis=0)
-
-    dVy_dx = np.gradient(v_magnitudes, dx, axis=1)
-    
-    # Calculate the vorticity field (it is a numpy array of the same shape as the input arrays)
+    # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y, then calculate the vorticity field
+    dVx_dy = np.gradient(u_magnitudes, dy, axis=1)
+    dVy_dx = np.gradient(v_magnitudes, dx, axis=0)
     Vorticity_field = dVy_dx - dVx_dy
-
-    # Create scatter plot
-    # 'c' is the colors, 'cmap' is the colormap
-
-    # Adding a color bar to represent the magnitude of 'V'
     
+    Vorticity_field = Vorticity_field[10:-10, 10:-10]
 
-    
-    
+    # Create scatter plot    
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('bwr')
+    cmap = plt.colormaps.get_cmap('viridis')
 
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(vmin=np.percentile(Vorticity_field , 5), vmax=np.percentile(Vorticity_field, 95))
@@ -81,7 +76,6 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
 
     # Close the plot to release memory
     plt.close()
-
 
 
 def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, J_number, bin):
