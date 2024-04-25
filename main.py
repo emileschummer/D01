@@ -33,12 +33,12 @@ y_positions = positions[:, 1]
 
     # Convert into time averaged flow fields
 
-Planes=['C']#Add C
+Planes=['B']#Add C
 
 for plane in Planes:
     print(plane)
     for j in range(2,3): #ADD 0
-        average_U_arr, average_V_arr = average_values(1, 2500, plane, j)
+        average_U_arr, average_V_arr = average_values(1, 4000, plane, j)
         print('ok')
         
         time_average_image(average_U_arr, average_V_arr, plane, j)
