@@ -149,8 +149,8 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
             j = int((y - y_min) / y_step)
 
             # Check if the indices are within the grid bounds
-            if 0 <= i < n and 0 <= j < m:
-                u_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
+            #if 0 <= i < n and 0 <= j < m:
+            u_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
 
         for x, y, vel in zip(x_positions, y_positions, v_magnitudes):
             # Calculate the grid indices for the given (x, y) position
@@ -158,8 +158,8 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
             j = int((y - y_min) / y_step)
 
             # Check if the indices are within the grid bounds
-            if 0 <= i < n and 0 <= j < m:
-                v_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
+            #if 0 <= i < n and 0 <= j < m:
+            v_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
 
 
     else:
