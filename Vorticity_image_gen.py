@@ -12,12 +12,12 @@ from Bin_average_function import Calc
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
     # Convert u_magnitudes and v_magnitudes to 2D arrays
-    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
+    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane)
 
     #load positions
     x_positions, y_positions = position(plane, J_number)
 
-    x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions)
+    x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions, plane)
     x_positions = x_positions[10:-10, 10:-10]
     y_positions = y_positions[10:-10, 10:-10]
 
@@ -34,7 +34,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
 
     # Create scatter plot    
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('jet')
+    cmap = plt.colormaps.get_cmap('magma')
 
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(vmin=np.percentile(Vorticity_field , 5), vmax=np.percentile(Vorticity_field, 95))
