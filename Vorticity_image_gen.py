@@ -12,7 +12,7 @@ from Bin_average_function import Calc
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     
     # Convert u_magnitudes and v_magnitudes to 2D arrays
-    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane)
+    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number)
 
     #load positions
     x_positions, y_positions = position(plane, J_number)
