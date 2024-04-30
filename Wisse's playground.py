@@ -134,8 +134,8 @@ Mv_array=np.divide(extracted_v,space_array)
 
 Cu=-Mu_array*wall_postion_y
 Cv=-Mv_array*wall_postion_y
-print(rounded_steps)
-rounded_steps=rounded_steps[:, 1]
+
+
 
 # Initialize a list to store new y values and corresponding x values
 new_ys = []
@@ -155,4 +155,10 @@ for x, y, n in zip(xs, ys, ns):
 new_ys_array = np.concatenate(new_ys)
 expanded_xs_array = np.concatenate(expanded_xs)
 
+# Combine x and y values into a single array
+missing_positions = np.column_stack((expanded_xs_array, new_ys_array))
+
+#calculate u and v values for missing positions
+missing_v = (Mv_array * missing_positions[:, 1]) + Cv
+missing_u = (Mu_array * missing_positions[:, 1]) + Cu
 
