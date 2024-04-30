@@ -134,8 +134,8 @@ Mv_array=np.divide(extracted_v,space_array)
 
 Cu=-Mu_array*wall_postion_y
 Cv=-Mv_array*wall_postion_y
-print(rounded_steps)
-rounded_steps=rounded_steps[:, 1]
+
+
 
 # Initialize a list to store new y values and corresponding x values
 new_ys = []
