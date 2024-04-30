@@ -137,18 +137,22 @@ Cv=-Mv_array*wall_postion_y
 print(rounded_steps)
 rounded_steps=rounded_steps[:, 1]
 
-# Initialize a list to store new y values
+# Initialize a list to store new y values and corresponding x values
 new_ys = []
+expanded_xs = []
 
-# Generate new y values
-for y, n in zip(lowest_y_array, rounded_steps):
+# Generate new y values and repeat x values accordingly
+for x, y, n in zip(xs, ys, ns):
     # Create an array of n new y values starting from y, with step_size increments
     new_y_values = y + np.arange(1, n + 1) * step_size
     new_ys.append(new_y_values)
+    
+    # Repeat x value n times
+    repeated_xs = np.full(n, x)
+    expanded_xs.append(repeated_xs)
 
-# Convert list of arrays into a single array for easier handling if needed
+# Convert list of arrays into a single array for easier handling
 new_ys_array = np.concatenate(new_ys)
+expanded_xs_array = np.concatenate(expanded_xs)
 
-# Print results
-print("New y values:")
-print(new_ys_array)
+
