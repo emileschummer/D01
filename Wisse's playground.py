@@ -7,7 +7,7 @@ positions_file_path = f"{'C'}_J{0}/XY.dat"
 #Np array of position
 positions = np.loadtxt(positions_file_path)
 
-
+xs=positions[:763, 0]
 
 
 def find_lowest_y(points):
@@ -58,7 +58,7 @@ for x, lowest_y in lowest_y_by_x.items():
     print(f"x = {x}, lowest y = {lowest_y}")'''
     
 lowest_y_array = np.array(list(lowest_y_by_x.items()))    
-print(lowest_y_array)
+
 step_size=0.2559
 
 wall_file_path = f"{'C'}_J{0}/wall.dat"
@@ -74,7 +74,7 @@ space_array=space_array[:, 1]
 amount_of_steps=space_array/step_size
 
 rounded_steps=np.floor(amount_of_steps)
-
+rounded_steps=rounded_steps.astype(int)
 
 
 
@@ -124,7 +124,7 @@ for x in unique_xs:
 
     
 extracted_u = [u_magnitudes[i[1]] for i in min_indices]
-print(len(extracted_u))
+
 
 extracted_v = [v_magnitudes[i[1]] for i in min_indices]
     
@@ -136,14 +136,15 @@ Cu=-Mu_array*wall_postion_y
 Cv=-Mv_array*wall_postion_y
 
 
-
 # Initialize a list to store new y values and corresponding x values
 new_ys = []
 expanded_xs = []
 
 # Generate new y values and repeat x values accordingly
-for x, y, n in zip(xs, ys, ns):
+for x, y, n in zip(lowest_y_array[:,0], lowest_y_array[:,1], rounded_steps):
     # Create an array of n new y values starting from y, with step_size increments
+    
+    
     new_y_values = y + np.arange(1, n + 1) * step_size
     new_ys.append(new_y_values)
     
@@ -159,6 +160,31 @@ expanded_xs_array = np.concatenate(expanded_xs)
 missing_positions = np.column_stack((expanded_xs_array, new_ys_array))
 
 #calculate u and v values for missing positions
-missing_v = (Mv_array * missing_positions[:, 1]) + Cv
-missing_u = (Mu_array * missing_positions[:, 1]) + Cu
+missing_v=[]
+missing_u=[]
+j=0
+print(len(missing_positions[:,0]))
+for i in range(len(missing_positions[:,0])):  
+    
+    xi = missing_positions[i, 0]
+    
+    if i != 0:
+        ximinusone =  missing_positions[i-1, 0]
+    else: 
+        ximinusone = xi
+    
+    if xi == ximinusone:
+        missing_v.append( (Mv_array[j] * missing_positions[i, 1]) + Cv[j])
+        missing_u.append( (Mu_array[j] * missing_positions[i, 1]) + Cu[j])
+        
+    else: 
+        j=j+1
+        
+        missing_v.append( (Mv_array[j] * missing_positions[i, 1]) + Cv[j])
+        missing_u.append( (Mu_array[j] * missing_positions[i, 1]) + Cu[j])
+        
+print(len(missing_v)) 
+ 
 
+
+    
