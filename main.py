@@ -13,35 +13,31 @@ from averagefunction import average_values, time_average_image
 from Bin_average_function import bin_average_velocities, bin_average_vector_field_image
 from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations
 from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Turbulent_kinetic_energy
+from interpolate import interpol
 
 # Select the plane of interest and propeller configuration.
 
 
 # Extract the data
 
-#acquiring positions
-positions_file_path = "B_J1/XY.dat"
-positions = np.loadtxt(positions_file_path)
-# Read data from files
-# Extract x, y positions from the positions data
-x_positions = positions[:, 0]
-# print(x_positions)
-y_positions = positions[:, 1]
-# print(y_positions)
+
 
     # Obtain unsteady flow field
 
     # Convert into time averaged flow fields
 
-Planes=['B']#Add C
+Planes=['C']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(1,2): #ADD 0
-        #average_U_arr, average_V_arr = average_values(1, 2500, plane, j)
+    for j in range(0,1): #ADD 0
+        average_U_arr, average_V_arr = average_values(1, 25, plane, j)
         print('ok')
+         
+        average_U_arr, average_V_arr=interpol(average_U_arr, average_V_arr)
+            
         
-        #time_average_image(average_U_arr, average_V_arr, plane, j)
+        time_average_image(average_U_arr, average_V_arr, plane, j)
 
         if j==0:
             print('no bins')
