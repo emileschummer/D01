@@ -17,7 +17,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     #load positions
     x_positions, y_positions = position(plane, J_number)
 
-    x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions, plane)
+    x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions, plane, J_number)
     x_positions = x_positions[10:-10, 10:-10]
     y_positions = y_positions[10:-10, 10:-10]
 
