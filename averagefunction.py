@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib import cm
 from matplotlib.cm import ScalarMappable
+from interpolate import interpolpos
 
 # Define the directory containing the data files
 
@@ -163,9 +164,14 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
     positions_file_path = f"{plane}_J{J_number}/XY.dat"
     positions = np.loadtxt(positions_file_path)  
 
+   
+    
+    
+    positions=interpolpos(positions)
+        
     x_positions = positions[:, 0]
-    y_positions = positions[:, 1]
-
+    y_positions = positions[:, 1]    
+        
     # Calculate magnitudes of each vector
     magnitudes = np.sqrt(average_U_arr ** 2 + average_V_arr ** 2)
     
