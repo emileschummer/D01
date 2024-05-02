@@ -26,19 +26,19 @@ from interpolate import interpol
 
     # Convert into time averaged flow fields
 
-Planes=['B']#Add C
+Planes=['C']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(2,3): #ADD 0
-        '''average_U_arr, average_V_arr = average_values(1, 20, plane, j)
+    for j in range(0,1): #ADD 0
+        average_U_arr, average_V_arr = average_values(1, 250, plane, j)
         print('ok')
          
         average_U_arr, average_V_arr=interpol(average_U_arr, average_V_arr)
             
         
         time_average_image(average_U_arr, average_V_arr, plane, j)
-        '''
+        
         if j==0:
             print('no bins')
         # Convert into bin averaged flow fields
@@ -59,7 +59,7 @@ for plane in Planes:
                 #bin_average_vector_field_image(i, plane, j)
 
                 # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
-                Vorticity_image(u_magnitudes, v_magnitudes, plane, j, i)
+                #Vorticity_image(u_magnitudes, v_magnitudes, plane, j, i)
                 # fluctuations_image
                 
             
