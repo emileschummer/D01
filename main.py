@@ -62,7 +62,7 @@ for plane in Planes:
                 #vector fields
                 #bin_average_vector_field_image(i, plane, j)
 
-            # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
+                # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
                 Vorticity_image(u_magnitudes, v_magnitudes, plane, j, i)
                 # fluctuations_image
                 
