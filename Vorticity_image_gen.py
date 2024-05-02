@@ -24,20 +24,23 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     # Define the grid spacing
     dx = 0.9295 / 1000 # m
     dy = 0.9295 / 1000 # m
-
+    
+    
+    
+    
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y, then calculate the vorticity field
     dVx_dy = np.gradient(u_magnitudes, dy, axis=1)
     dVy_dx = np.gradient(v_magnitudes, dx, axis=0)
-    Vorticity_field = dVy_dx - dVx_dy
+    Vorticity_field =dVy_dx-dVx_dy
     
     Vorticity_field = Vorticity_field[10:-10, 10:-10]
 
     # Create scatter plot    
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('magma')
+    cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=np.percentile(Vorticity_field , 5), vmax=np.percentile(Vorticity_field, 95))
+    norm = Normalize(-100, 100)
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
