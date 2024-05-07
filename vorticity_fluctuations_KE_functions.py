@@ -153,9 +153,11 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
             # Check if the indices are within the grid bounds
             if 0 <= i < n and 0 <= j < m:
                 v_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
+        
+        return u_magnitudes_2D.T, v_magnitudes_2D.T
 
     else:
         u_magnitudes_2D = np.array(u_magnitudes).reshape(167,214) # 167 rows, 214 columns
         v_magnitudes_2D = np.array(v_magnitudes).reshape(167,214)
 
-    return u_magnitudes_2D, v_magnitudes_2D
+        return u_magnitudes_2D, v_magnitudes_2D
