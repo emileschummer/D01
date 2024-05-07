@@ -97,7 +97,7 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
 
     # Plotting Vector Field with QUIVER and colormap
     ax.scatter(x_positions, y_positions, c=Velocity_fluctuations_u, cmap=cmap, norm=norm)
-    ax.set_title('Vector Field with Color Scale')
+    ax.set_title('Velocity fluctuations with Color Scale', fontsize=16)
 
     # Create a ScalarMappable object for colormap
     sm = ScalarMappable(cmap=cmap, norm=norm)
@@ -105,11 +105,11 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
 
     # Add colorbar using the ScalarMappable object
     cbar = plt.colorbar(sm, ax=ax)
-    cbar.set_label('Magnitude of velocity fluctations U')
+    cbar.set_label('Magnitude of velocity fluctations U', fontsize=14)
     
-    ax.set_xlabel('X axis')
-    ax.set_ylabel('Y axis')
-    ax.set_title('Scatter plot U fluctations')
+    ax.set_xlabel('X axis', fontsize=14)
+    ax.set_ylabel('Y axis', fontsize=14)
+    ax.set_title('Scatter plot U fluctations', fontsize=16)
 
     # Setting x, y boundary limits
     ax.set_xlim(np.min(x_positions) - 1, np.max(x_positions) + 1)
