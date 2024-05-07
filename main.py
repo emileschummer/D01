@@ -15,30 +15,21 @@ from vorticity_fluctuations_KE_functions import Vorticity, Velocity_fluctuations
 from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Turbulent_kinetic_energy
 from interpolate import interpol
 
-# Select the plane of interest and propeller configuration.
-
-
-# Extract the data
-
-
-
-    # Obtain unsteady flow field
-
-    # Convert into time averaged flow fields
 
 Planes=['B']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(2,3): #ADD 0
+    for j in range(1,2): #ADD 0
+
         '''average_U_arr, average_V_arr = average_values(1, 20, plane, j)
         print('ok')
          
         average_U_arr, average_V_arr=interpol(average_U_arr, average_V_arr)
             
-        
         time_average_image(average_U_arr, average_V_arr, plane, j)
         '''
+
         if j==0:
             print('no bins')
         # Convert into bin averaged flow fields

@@ -10,37 +10,32 @@ from Bin_average_function import Calc
 
 
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
-    
-    # Convert u_magnitudes and v_magnitudes to 2D arrays
-    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number)
-
     #load positions
     x_positions, y_positions = position(plane, J_number)
+    dx_list = np.unique(x_positions)
+    dy_list = np.unique(y_positions)[::-1]
+    
+    # Convert to 2D arrays
+    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number)
 
+    # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y, then calculate the vorticity field
+    dVx_dy = np.gradient(u_magnitudes, dy_list, axis=0)
+    dVy_dx = np.gradient(v_magnitudes, dx_list, axis=1)
+    Vorticity_field = dVy_dx - dVx_dy
+
+   
+    # Remove the first and last 10 points to avoid edge effects
     x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions, plane, J_number)
     x_positions = x_positions[10:-10, 10:-10]
     y_positions = y_positions[10:-10, 10:-10]
-
-    # Define the grid spacing
-    dx = 0.9295 / 1000 # m
-    dy = 0.9295 / 1000 # m
-    
-    
-    
-    
-    # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y, then calculate the vorticity field
-    dVx_dy = np.gradient(u_magnitudes, dy, axis=1)
-    dVy_dx = np.gradient(v_magnitudes, dx, axis=0)
-    Vorticity_field =dVy_dx-dVx_dy
-    
     Vorticity_field = Vorticity_field[10:-10, 10:-10]
 
-    # Create scatter plot    
+    # Create scatter plot
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('bwr')
+    cmap = plt.colormaps.get_cmap('magma')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(-100, 100)
+    norm = Normalize(-1, 1)
 
     # Set figure size and DPI for high-quality image
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)

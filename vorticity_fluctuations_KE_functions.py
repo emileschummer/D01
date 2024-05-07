@@ -62,8 +62,6 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
     x_positions = positions[:, 0]
     y_positions = positions[:, 1]
 
-
-
     return Velocity_fluctuations_u, Velocity_fluctuations_v
 
 
@@ -120,12 +118,7 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     return turbulent_kinetic_energy
 
 def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
-
-    # TO USE THIS FUNCTION DO STH LIKE THIS: u_magnitudes, v_magnitudes (THIS ARE OLD, 1D LIST OF u and v magnitudes)= UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes)
-    #the function returns 2D arrays of u_magnitudes and v_magnitudes 214 rows, 167 columns
-
     if plane == 'C':
-
         x_positions, y_positions = position(plane, J_number)
 
         # Determine grid dimensions based on grid_size
@@ -149,8 +142,8 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
             j = int((y - y_min) / y_step)
 
             # Check if the indices are within the grid bounds
-            #if 0 <= i < n and 0 <= j < m:
-            u_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
+            if 0 <= i < n and 0 <= j < m:
+                u_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
 
         for x, y, vel in zip(x_positions, y_positions, v_magnitudes):
             # Calculate the grid indices for the given (x, y) position
@@ -158,12 +151,11 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
             j = int((y - y_min) / y_step)
 
             # Check if the indices are within the grid bounds
-            #if 0 <= i < n and 0 <= j < m:
-            v_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
-
+            if 0 <= i < n and 0 <= j < m:
+                v_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
 
     else:
-        u_magnitudes_2D = np.array(u_magnitudes).reshape(167,214)
+        u_magnitudes_2D = np.array(u_magnitudes).reshape(167,214) # 167 rows, 214 columns
         v_magnitudes_2D = np.array(v_magnitudes).reshape(167,214)
 
     return u_magnitudes_2D, v_magnitudes_2D
