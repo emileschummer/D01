@@ -16,7 +16,7 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 from interpolate import interpol
 
 
-Planes=['C']#Add C
+Planes=['B']#Add C
 
 for plane in Planes:
     print(plane)
