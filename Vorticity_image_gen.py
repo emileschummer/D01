@@ -316,8 +316,8 @@ def Turbulent_kinetic_energy(plane, J_number, bin):
     cmap = plt.colormaps.get_cmap('magma')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=np.percentile(turbulent_kinetic_energy , 5), vmax=np.percentile(turbulent_kinetic_energy, 95))
-    
+    #norm = Normalize(vmin=np.percentile(turbulent_kinetic_energy , 5), vmax=np.percentile(turbulent_kinetic_energy, 95))
+    norm = Normalize(0, 3.5)
     
     fig, ax = plt.subplots(figsize=(12, 8), dpi=300)
 
