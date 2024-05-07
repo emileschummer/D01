@@ -92,8 +92,8 @@ def Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, avera
     cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
-    norm = Normalize(vmin=np.percentile(Velocity_fluctuations_u, 1), vmax=np.percentile(Velocity_fluctuations_u, 99))
-
+    #norm = Normalize(vmin=np.percentile(Velocity_fluctuations_u, 1), vmax=np.percentile(Velocity_fluctuations_u, 99))
+    norm = Normalize(-4, 6)
     
     
     # Set figure size and DPI for high-quality image
