@@ -30,14 +30,14 @@ Planes=['C']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(0,1): #ADD 0
-        average_U_arr, average_V_arr = average_values(1, 250, plane, j)
+    for j in range(1,2): #ADD 0
+        average_U_arr, average_V_arr = average_values(1, 2500, plane, j)
         print('ok')
          
-        average_U_arr, average_V_arr=interpol(average_U_arr, average_V_arr)
+        #average_U_arr, average_V_arr=interpol(average_U_arr, average_V_arr)
             
         
-        time_average_image(average_U_arr, average_V_arr, plane, j)
+        #time_average_image(average_U_arr, average_V_arr, plane, j)
         
         if j==0:
             print('no bins')
@@ -52,7 +52,7 @@ for plane in Planes:
                 error, u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
                 if error==0:
                     break
-                #Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
+                Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
                 # Turbulent kinetic energy
                 #Turbulent_kinetic_energy(plane, j, i)
                 #vector fields

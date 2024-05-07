@@ -11,3 +11,9 @@ def position(plane, J_number):
     x_positions = positions[:, 0]
     y_positions = positions[:, 1]
     return x_positions, y_positions
+
+
+
+
+
+
