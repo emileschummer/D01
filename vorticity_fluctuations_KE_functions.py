@@ -98,6 +98,8 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
             # Check if the indices are within the grid bounds
             if 0 <= i < n and 0 <= j < m:
                 v_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
+        
+        return u_magnitudes_2D.T, v_magnitudes_2D.T
 
         return u_magnitudes_2D.T, v_magnitudes_2D.T
 
