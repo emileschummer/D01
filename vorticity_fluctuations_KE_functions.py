@@ -64,49 +64,35 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
 
 def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
     if plane == 'C':
+        
         x_positions, y_positions = position(plane, J_number)
 
         # Determine grid dimensions based on grid_size
-        n = len(np.unique(x_positions))
-        m = len(np.unique(y_positions))
+        x = np.unique(x_positions)
+        y = np.unique(y_positions)
+        n = len(x)
+        m = len(y)
 
-        # Initialize the 2D array to store velocity measurements
-        u_magnitudes_2D, v_magnitudes_2D = np.zeros((n, m)), np.zeros((n, m))
+        # Create a 2D array for the u and v magnitudes
+        u_magnitudes_2D = np.zeros((n, m))
+        v_magnitudes_2D = np.zeros((n, m))
 
-        # Calculate the grid spacing based on the range of x and y positions
-        x_min, x_max = np.min(x_positions), np.max(x_positions)
-        y_min, y_max = np.min(y_positions), np.max(y_positions)
+        # Fill the 2D arrays with the 1D data
 
-        x_step = (x_max - x_min) / (n - 1)
-        y_step = (y_max - y_min) / (m - 1)
+        for i in range(u_magnitudes):
+            i_x = np.where(x == x_positions[i])[0]
+            i_y = np.where(y == y_positions[i])[0]
+            u_magnitudes_2D[i_x, i_y] = u_magnitudes[i]
 
-        # Map each velocity measurement to the corresponding grid position
-        for x, y, vel in zip(x_positions, y_positions, u_magnitudes):
-            # Calculate the grid indices for the given (x, y) position
-            i = int((x - x_min) / x_step)
-            j = int((y - y_min) / y_step)
+        for j in range(v_magnitudes):
+            j_x = np.where(x == x_positions[j])[0]
+            j_y = np.where(y == y_positions[j])[0]
+            v_magnitudes_2D[j_x, j_y] = v_magnitudes[j]
 
-            # Check if the indices are within the grid bounds
-            if 0 <= i < n and 0 <= j < m:
-                u_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
-
-        for x, y, vel in zip(x_positions, y_positions, v_magnitudes):
-            # Calculate the grid indices for the given (x, y) position
-            i = int((x - x_min) / x_step)
-            j = int((y - y_min) / y_step)
-
-            # Check if the indices are within the grid bounds
-            if 0 <= i < n and 0 <= j < m:
-                v_magnitudes_2D[i, j] = vel  # Assign velocity measurement to the grid
-        
-        return u_magnitudes_2D.T, v_magnitudes_2D.T
-
-        return u_magnitudes_2D.T, v_magnitudes_2D.T
+        return u_magnitudes_2D, v_magnitudes_2D
 
     else:
         u_magnitudes_2D = np.array(u_magnitudes).reshape(167,214) # 167 rows, 214 columns
         v_magnitudes_2D = np.array(v_magnitudes).reshape(167,214)
         
         return u_magnitudes_2D, v_magnitudes_2D
-
-    
