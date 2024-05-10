@@ -60,8 +60,7 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     return turbulent_kinetic_energy
 
 
-def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
-    x_positions, y_positions = position(plane, J_number)
+def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, x_positions, y_positions):
 
     # Determine grid dimensions based on grid_size
     x = np.unique(x_positions)

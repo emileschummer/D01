@@ -16,7 +16,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     dy_list = np.unique(y_positions)
     
     # Convert to 2D arrays
-    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number)
+    u_magnitudes, v_magnitudes = UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, x_positions, y_positions)
 
     # Calculate the partial derivatives of the velocity field, axis 1 is x, axis 0 is y, then calculate the vorticity field
     dVx_dy = np.gradient(u_magnitudes, dy_list, axis=0)
@@ -25,7 +25,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
 
    
     # Remove the first and last 10 points to avoid edge effects
-    x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions, plane, J_number)
+    x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions, x_positions, y_positions)
     x_positions = x_positions[10:-10, 10:-10]
     y_positions = y_positions[10:-10, 10:-10]
     Vorticity_field = Vorticity_field[10:-10, 10:-10]
