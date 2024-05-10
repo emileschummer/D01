@@ -73,15 +73,10 @@ def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, x_positions, y_po
     v_magnitudes_2D = np.zeros((n, m))
 
     # Fill the 2D arrays with the 1D data
-
     for i in range(len(u_magnitudes)):
         i_x = np.where(x == x_positions[i])[0]
         i_y = np.where(y == y_positions[i])[0]
         u_magnitudes_2D[i_x, i_y] = u_magnitudes[i]
-
-    for j in range(len(v_magnitudes)):
-        j_x = np.where(x == x_positions[j])[0]
-        j_y = np.where(y == y_positions[j])[0]
-        v_magnitudes_2D[j_x, j_y] = v_magnitudes[j]
+        v_magnitudes_2D[i_x, i_y] = v_magnitudes[i]        
 
     return u_magnitudes_2D.T, v_magnitudes_2D.T
