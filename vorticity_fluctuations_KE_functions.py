@@ -1,4 +1,3 @@
-# imports
 import numpy as np
 import matplotlib.pyplot as plt
 from positionfunction import position
@@ -23,8 +22,6 @@ def Velocity_fluctuations(u_magnitudes, v_magnitudes, average_U_arr, average_V_a
 
     return Velocity_fluctuations_u, Velocity_fluctuations_v
 
-
-# Turbulent kinetic energy, defined as the mean of the square of the velocity fluctuations
 
 def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     
@@ -62,37 +59,30 @@ def Turbulent_kinetic_energy(Velocity_fluctuations_u, Velocity_fluctuations_v):
     
     return turbulent_kinetic_energy
 
+
 def UandVmagnitudes1Dto2Dconverter(u_magnitudes, v_magnitudes, plane, J_number):
-    if plane == 'C':
-        
-        x_positions, y_positions = position(plane, J_number)
+    x_positions, y_positions = position(plane, J_number)
 
-        # Determine grid dimensions based on grid_size
-        x = np.unique(x_positions)
-        y = np.unique(y_positions)
-        n = len(x)
-        m = len(y)
+    # Determine grid dimensions based on grid_size
+    x = np.unique(x_positions)
+    y = np.unique(y_positions)
+    n = len(x)
+    m = len(y)
 
-        # Create a 2D array for the u and v magnitudes
-        u_magnitudes_2D = np.zeros((n, m))
-        v_magnitudes_2D = np.zeros((n, m))
+    # Create a 2D array for the u and v magnitudes
+    u_magnitudes_2D = np.zeros((n, m))
+    v_magnitudes_2D = np.zeros((n, m))
 
-        # Fill the 2D arrays with the 1D data
+    # Fill the 2D arrays with the 1D data
 
-        for i in range(u_magnitudes):
-            i_x = np.where(x == x_positions[i])[0]
-            i_y = np.where(y == y_positions[i])[0]
-            u_magnitudes_2D[i_x, i_y] = u_magnitudes[i]
+    for i in range(len(u_magnitudes)):
+        i_x = np.where(x == x_positions[i])[0]
+        i_y = np.where(y == y_positions[i])[0]
+        u_magnitudes_2D[i_x, i_y] = u_magnitudes[i]
 
-        for j in range(v_magnitudes):
-            j_x = np.where(x == x_positions[j])[0]
-            j_y = np.where(y == y_positions[j])[0]
-            v_magnitudes_2D[j_x, j_y] = v_magnitudes[j]
+    for j in range(len(v_magnitudes)):
+        j_x = np.where(x == x_positions[j])[0]
+        j_y = np.where(y == y_positions[j])[0]
+        v_magnitudes_2D[j_x, j_y] = v_magnitudes[j]
 
-        return u_magnitudes_2D, v_magnitudes_2D
-
-    else:
-        u_magnitudes_2D = np.array(u_magnitudes).reshape(167,214) # 167 rows, 214 columns
-        v_magnitudes_2D = np.array(v_magnitudes).reshape(167,214)
-        
-        return u_magnitudes_2D, v_magnitudes_2D
+    return u_magnitudes_2D.T, v_magnitudes_2D.T

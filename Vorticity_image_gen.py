@@ -13,7 +13,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     #load positions
     x_positions, y_positions = position(plane, J_number)
     dx_list = np.unique(x_positions)
-    dy_list = np.unique(y_positions)[::-1]
+    dy_list = np.unique(y_positions)
     
     print(len(dx_list), len(dy_list))
     
