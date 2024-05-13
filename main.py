@@ -16,11 +16,11 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 from interpolate import interpol
 
 
-Planes=['C']#Add C
+Planes=['B']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(2,3): #ADD 0
+    for j in range(1,2): #ADD 0
         
         #average_U_arr, average_V_arr = average_values(1, 4000, plane, j)
         #print('ok')

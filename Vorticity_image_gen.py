@@ -10,7 +10,7 @@ from Bin_average_function import Calc
 
 
 def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
-    #load positions
+    #Load positions
     x_positions, y_positions = position(plane, J_number)
     dx_list = np.unique(x_positions)
     dy_list = np.unique(y_positions)
@@ -22,13 +22,12 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
     dVx_dy = np.gradient(u_magnitudes, dy_list, axis=0)
     dVy_dx = np.gradient(v_magnitudes, dx_list, axis=1)
     Vorticity_field = dVy_dx - dVx_dy
-
    
-    # Remove the first and last 10 points to avoid edge effects
+    # Remove the first and last 3 points to avoid edge effects
     x_positions, y_positions = UandVmagnitudes1Dto2Dconverter(x_positions, y_positions, x_positions, y_positions)
-    x_positions = x_positions[10:-10, 10:-10]
-    y_positions = y_positions[10:-10, 10:-10]
-    Vorticity_field = Vorticity_field[10:-10, 10:-10]
+    x_positions = x_positions[3:-3, 3:-3]
+    y_positions = y_positions[3:-3, 3:-3]
+    Vorticity_field = Vorticity_field[3:-3, 3:-3]
 
     # Create scatter plot
     # Define colormap from dark blue to bright red
