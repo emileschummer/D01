@@ -16,19 +16,19 @@ from Vorticity_image_gen import Vorticity_image, Velocity_fluctuations_image, Tu
 from interpolate import interpol
 
 
-Planes=['B']#Add C
+Planes=['C']#Add C
 
 for plane in Planes:
     print(plane)
-    for j in range(1,2): #ADD 0
+    for j in range(1,3): #ADD 0
         
-        #average_U_arr, average_V_arr = average_values(1, 4000, plane, j)
-        #print('ok')
+        average_U_arr, average_V_arr = average_values(1, 2500, plane, j)
+        print('ok')
          
-       # average_U_arr, average_V_arr=interpol(average_U_arr, average_V_arr)
+        
             
         
-        #time_average_image(average_U_arr, average_V_arr, plane, j)
+        time_average_image(average_U_arr, average_V_arr, plane, j)
        
         if j==0:
             print('no bins')
@@ -36,18 +36,18 @@ for plane in Planes:
         
           
         else:
-            for i in range(1, 37):
+            for i in range(1,2):
                 
                 
                 print('bin', i)
                 error, u_magnitudes, v_magnitudes = bin_average_velocities(i, plane, j)
                 if error==0:
                     break
-                #Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
-                # Turbulent kinetic energy
-                #Turbulent_kinetic_energy(plane, j, i)
+                Velocity_fluctuations_image(u_magnitudes, v_magnitudes, average_U_arr, average_V_arr, plane, j, i)
+                #Turbulent kinetic energy
+                Turbulent_kinetic_energy(plane, j, i)
                 #vector fields
-                #bin_average_vector_field_image(i, plane, j)
+                bin_average_vector_field_image(i, plane, j)
 
                 # Obtain the flow properties for bin averaged flow fields and plot the flow properties / Visualize
                 Vorticity_image(u_magnitudes, v_magnitudes, plane, j, i)

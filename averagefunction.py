@@ -167,7 +167,7 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
    
     
     
-    positions=interpolpos(positions)
+    
         
     x_positions = positions[:, 0]
     y_positions = positions[:, 1]    

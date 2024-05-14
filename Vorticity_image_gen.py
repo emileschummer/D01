@@ -31,7 +31,7 @@ def Vorticity_image(u_magnitudes, v_magnitudes, plane, J_number, bin):
 
     # Create scatter plot
     # Define colormap from dark blue to bright red
-    cmap = plt.colormaps.get_cmap('magma')
+    cmap = plt.colormaps.get_cmap('bwr')
 
     # Normalize magnitudes to range from 0 to 1
     norm = Normalize(-1, 1)
