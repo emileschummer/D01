@@ -226,7 +226,7 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
     # Close the plot to release memory
     plt.close()
 
-average_U_arr, average_V_arr = average_values(1, 2500, 'C', 0)
+average_U_arr, average_V_arr = average_values(1, 2500, 'A', 0)
 print('ok')
-time_average_image(average_U_arr, average_V_arr, 'C', 0)
+time_average_image(average_U_arr, average_V_arr, 'A', 0)
 
