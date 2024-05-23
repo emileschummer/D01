@@ -215,7 +215,7 @@ def time_average_image(average_U_arr, average_V_arr, plane, J_number):
 
 
     # Create directory for storing images if it doesn't exist
-    output_directory = f"Results\{plane}\Averaged_flow"
+    output_directory = f"Zigzag_results/{plane}/Averaged_flow"
     os.makedirs(output_directory, exist_ok=True)
     
     # Save the figure as a high-quality image in the output directory
