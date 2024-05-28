@@ -243,16 +243,31 @@ def fill_matrix_from_bottom_left(matrix, values):
         if row < 0:  # Stop when reached the top row
             break
 
-average_U_arr, average_V_arr = average_values(1, 2500, 'A', 0)
+average_U_arr, average_V_arr = average_values(1, 2500, 'A', 0)#2500 frames
 print('ok')
-time_average_image(average_U_arr, average_V_arr, 'A', 0)
-print("still working")
+#time_average_image(average_U_arr, average_V_arr, 'A', 0)
 velocities=np.column_stack((average_U_arr, average_V_arr))
 positions_file_path = "A_J0/XY.dat"
 positions = np.loadtxt(positions_file_path)
 max_y = len(np.unique(positions[:, 1]))
-max_x = len(np.unique(positions[:, 1]))
-matrix_shape = ( max_y, max_x)
+max_x = len(np.unique(positions[:, 0]))
+matrix_shape = (max_y, max_x)
 velocity_matrix = np.zeros(matrix_shape)
 fill_matrix_from_bottom_left(velocity_matrix, np.linalg.norm(velocities, axis=1))
-print(velocity_matrix)
+#print(velocity_matrix)
+
+x_positions = positions[:, 0]
+y_positions = positions[:, 1]  
+ffttab = np.empty(max_x, dtype=object)
+velocity_matrix = np.array(velocity_matrix)
+#velocity_matrix = velocity_matrix.transpose()
+#print(velocity_matrix)
+for i in range (max_x):
+    if i % 50 == 0:
+        print(i)
+    #print('ok4')
+    selected_column = velocity_matrix[:, i]
+    #print('ok4')
+    ffttab[i] = np.fft.rfft(selected_column)
+    #print(ffttab[i])
+np.savetxt('ffttab.txt', ffttab, delimiter=',', fmt='%s')
